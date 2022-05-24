@@ -10,7 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simpasi">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.splash.SplashActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".view.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
