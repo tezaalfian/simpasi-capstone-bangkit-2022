@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="8dp"
     app:cardCornerRadius="5dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_food_menu"
@@ -25,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/img_food_menu"
             app:layout_constraintEnd_toEndOf="@id/img_food_menu"
             app:layout_constraintStart_toStartOf="@+id/img_food_menu"
@@ -39,6 +40,7 @@
             android:textColor="?android:attr/textColorSecondary"
             android:ellipsize="end"
             android:maxLines="3"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
