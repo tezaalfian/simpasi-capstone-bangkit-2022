@@ -16,4 +16,9 @@
     <string name="akg_daily">AKG Daily</string>
     <string name="date">Date</string>
     <string name="add_data">Add Data</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
 </resources>
