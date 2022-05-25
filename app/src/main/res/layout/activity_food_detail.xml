@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fooddetail.FoodDetailActivity">
+    tools:context=".view.main.food.detail.FoodDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/img_food_menu"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="280dp"
             android:contentDescription="@string/image_food_menu"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"

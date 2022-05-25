@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simpasi">
         <activity
-            android:name=".view.fooddetail.FoodDetailActivity"
+            android:name=".view.main.food.list.FoodListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.food.detail.FoodDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.splash.SplashActivity"
