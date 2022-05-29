@@ -4,6 +4,7 @@ import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.LoginResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.RegisterResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.UpdateChildResponse
+import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
@@ -25,9 +26,9 @@ interface ApiService {
     ): LoginResponse
 
     @GET("bayi")
-    suspend fun getChildren(
+    fun getChildren(
         @Header("Authorization") token: String,
-    ): List<ChildResponse>
+    ): Call<List<ChildResponse>>
 
     @GET("bayi/{id}")
     suspend fun getChild(

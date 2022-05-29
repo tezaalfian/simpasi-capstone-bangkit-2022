@@ -6,5 +6,5 @@ import com.tezaalfian.simpasi.core.domain.model.Child
 
 interface IChildRepository {
 
-    fun getChildren(): LiveData<Resource<List<Child>>>
+    fun getChildren(token: String): LiveData<Resource<List<Child>>>
 }
