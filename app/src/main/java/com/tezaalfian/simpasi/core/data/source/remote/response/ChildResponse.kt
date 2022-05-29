@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class ChildResponse(
 
 	@field:SerializedName("_id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("nama")
-	val nama: String? = null,
+	val nama: String,
 
 	@field:SerializedName("tglLahir")
 	val tglLahir: String? = null,
@@ -26,7 +26,7 @@ data class ChildResponse(
 	val alergi: String? = null,
 
 	@field:SerializedName("user")
-	val user: String? = null,
+	val user: String,
 
 	@field:SerializedName("jk_bayi")
 	val jkBayi: String? = null,
