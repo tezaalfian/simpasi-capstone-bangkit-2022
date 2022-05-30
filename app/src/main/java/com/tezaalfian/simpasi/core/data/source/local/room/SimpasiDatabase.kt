@@ -12,7 +12,7 @@ import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
     exportSchema = false
 )
 abstract class SimpasiDatabase : RoomDatabase() {
-    abstract fun storyDao(): ChildDao
+    abstract fun childDao(): ChildDao
 
     companion object {
         @Volatile
