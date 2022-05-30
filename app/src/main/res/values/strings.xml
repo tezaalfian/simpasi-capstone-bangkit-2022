@@ -23,4 +23,7 @@
     <string name="username">Username</string>
     <string name="add_to_daily_food">Add to Daily Food</string>
     <string name="search">Search</string>
+    <string name="weight">Weight</string>
+    <string name="birthday">Birthday</string>
+    <string name="child_image">Child Image</string>
 </resources>
