@@ -5,7 +5,6 @@
     <string name="title_food_daily">Food Daily</string>
     <string name="title_children">Children</string>
     <string name="title_profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image_food_menu">Image Food Menu</string>
     <string name="food_name">Food Name</string>
@@ -26,4 +25,5 @@
     <string name="weight">Weight</string>
     <string name="birthday">Birthday</string>
     <string name="child_image">Child Image</string>
+    <string name="something_wrong">Oops.. something went wrong</string>
 </resources>

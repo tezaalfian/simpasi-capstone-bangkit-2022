@@ -41,7 +41,7 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
         }
         Glide.with(holder.itemView.context)
             .load(R.drawable.baby)
-            .circleCrop()
+            .centerCrop()
             .placeholder(R.drawable.image_loading)
             .error(R.drawable.image_error)
             .into(holder.binding.imgChild)

@@ -27,7 +27,7 @@ interface ApiService {
 
     @GET("bayi")
     fun getChildren(
-        @Header("Authorization") token: String,
+        @Header("auth-token") token: String,
     ): Call<List<ChildResponse>>
 
     @GET("bayi/{id}")

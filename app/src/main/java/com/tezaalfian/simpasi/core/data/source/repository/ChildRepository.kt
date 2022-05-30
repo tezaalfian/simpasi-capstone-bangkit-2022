@@ -26,8 +26,7 @@ class ChildRepository private constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<Child>?): Boolean =
-                data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Child>?): Boolean = true
 
             override fun createCall(): LiveData<ApiResponse<List<ChildResponse>>> =
                 remoteDataSource.getChildren(token)
