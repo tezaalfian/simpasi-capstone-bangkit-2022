@@ -1,5 +1,6 @@
 package com.tezaalfian.simpasi.view.main.children
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,39 +34,37 @@ class ChildrenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        if (activity != null) {
-            val childAdapter = ListChildAdapter()
-            childAdapter.setOnItemClickCallback(object : ListChildAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: Child) {
-
-                }
-            })
-
-            val factory = ChildViewModelFactory.getInstance(requireActivity())
-            childrenViewModel =
-                ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
-
-            childrenViewModel.getChildren("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkwOGYxMzQwOWYxNGY1NzZjZTgyNGQiLCJpYXQiOjE2NTM3MzA3ODV9.lMzYrfJWqmzk3xKlS2fde_wWeS16jvglmvaeu2qhyJ0").observe(viewLifecycleOwner){ child ->
-                if (child != null) {
-                    when(child) {
-                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            childAdapter.setData(child.data)
-                        }
-                        is Resource.Error -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            Toast.makeText(
-                                requireActivity(),
-                                child.message ?: getString(R.string.something_wrong),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+        val childAdapter = ListChildAdapter()
+        childAdapter.setOnItemClickCallback(object : ListChildAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Child) {
+            }
+        })
+        val factory = ChildViewModelFactory.getInstance(requireActivity())
+        childrenViewModel =
+            ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
+        childrenViewModel.getChildren("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkwOGYxMzQwOWYxNGY1NzZjZTgyNGQiLCJpYXQiOjE2NTM3MzA3ODV9.lMzYrfJWqmzk3xKlS2fde_wWeS16jvglmvaeu2qhyJ0").observe(viewLifecycleOwner){ child ->
+            if (child != null) {
+                when(child) {
+                    is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        childAdapter.setData(child.data)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(
+                            requireActivity(),
+                            child.message ?: getString(R.string.something_wrong),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
-            binding?.rvChildren?.adapter = childAdapter
-//        }
+        }
+        binding?.rvChildren?.adapter = childAdapter
+        binding?.btnAddChildren?.setOnClickListener {
+            startActivity(Intent(activity, AddEditChildActivity::class.java))
+        }
     }
 
     override fun onDestroyView() {

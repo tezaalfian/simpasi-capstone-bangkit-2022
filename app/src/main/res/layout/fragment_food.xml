@@ -15,10 +15,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
         app:startIconContentDescription="@string/date"
-        tools:layout_editor_absoluteX="16dp">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:inputType="date"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>

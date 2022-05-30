@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.domain.model.Child
+import com.tezaalfian.simpasi.core.utils.setLocalDateFormat
 import com.tezaalfian.simpasi.databinding.ItemChildrenBinding
 import java.util.ArrayList
 
@@ -37,7 +38,7 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
         holder.binding.apply {
             tvChildName.text = child.nama
             tvGender.text = child.jkBayi
-            tvTglLahir.text = child.tglLahir
+            tvTglLahir.setLocalDateFormat(child.tglLahir.toString())
         }
         Glide.with(holder.itemView.context)
             .load(R.drawable.baby)

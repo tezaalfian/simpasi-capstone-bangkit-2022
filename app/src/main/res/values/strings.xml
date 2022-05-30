@@ -22,8 +22,12 @@
     <string name="username">Username</string>
     <string name="add_to_daily_food">Add to Daily Food</string>
     <string name="search">Search</string>
-    <string name="weight">Weight</string>
-    <string name="birthday">Birthday</string>
     <string name="child_image">Child Image</string>
     <string name="something_wrong">Oops.. something went wrong</string>
+    <string name="birthday">Birthday</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="save">Save</string>
 </resources>
