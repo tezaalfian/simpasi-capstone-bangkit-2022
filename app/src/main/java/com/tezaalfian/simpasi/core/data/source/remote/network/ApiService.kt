@@ -32,13 +32,13 @@ interface ApiService {
 
     @GET("bayi/{id}")
     suspend fun getChild(
-        @Header("Authorization") token: String,
+        @Header("auth-token") token: String,
         @Path("id") id: String
     ): ChildResponse
 
     @POST("bayi")
     suspend fun addChild(
-        @Header("Authorization") token: String,
+        @Header("auth-token") token: String,
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
         @Field("umur") umur: Int,
@@ -50,7 +50,7 @@ interface ApiService {
 
     @PUT("bayi/{id}")
     suspend fun editChild(
-        @Header("Authorization") token: String,
+        @Header("auth-token") token: String,
         @Path("id") id: String,
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
@@ -63,7 +63,7 @@ interface ApiService {
 
     @DELETE("bayi/{id}")
     suspend fun deleteChild(
-        @Header("Authorization") token: String,
+        @Header("auth-token") token: String,
         @Path("id") id: String
     ): ChildResponse
 }
