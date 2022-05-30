@@ -4,35 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.databinding.FragmentChildrenBinding
 
 class ChildrenFragment : Fragment() {
 
     private var _binding: FragmentChildrenBinding? = null
+    private lateinit var childrenViewModel: ChildrenViewModel
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(ChildrenViewModel::class.java)
-
+    ): ConstraintLayout? {
         _binding = FragmentChildrenBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding?.root
+    }
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity != null) {
+            val factory = ChildViewModelFactory.getInstance(requireActivity())
+            childrenViewModel =
+                ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
         }
-        return root
     }
 
     override fun onDestroyView() {

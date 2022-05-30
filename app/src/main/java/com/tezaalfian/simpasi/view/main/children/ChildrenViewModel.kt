@@ -1,13 +1,9 @@
 package com.tezaalfian.simpasi.view.main.children
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tezaalfian.simpasi.core.domain.usecase.ChildUseCase
 
-class ChildrenViewModel : ViewModel() {
+class ChildrenViewModel(private val childUseCase: ChildUseCase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun getChildren(token: String) = childUseCase.getChildren(token)
 }
