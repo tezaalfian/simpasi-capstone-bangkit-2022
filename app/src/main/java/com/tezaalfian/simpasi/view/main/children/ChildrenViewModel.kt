@@ -18,4 +18,6 @@ class ChildrenViewModel(private val childRepository: ChildRepository) : ViewMode
     = childRepository.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi,alergi)
 
     fun editChild(token: String, child: ChildEntity) = childRepository.editChild(token, child)
+
+    fun deleteChild(token: String, id: String) = childRepository.deleteChild(token, id)
 }

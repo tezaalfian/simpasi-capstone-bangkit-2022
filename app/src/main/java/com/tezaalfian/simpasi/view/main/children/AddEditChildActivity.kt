@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
@@ -60,15 +61,50 @@ class AddEditChildActivity : AppCompatActivity() {
                 if (childExtra != null) {
                     this.child = childExtra
                 }
-                binding.btnDelete.text = resources.getString(R.string.update)
-                binding.edtName.setText(child.nama)
-                binding.edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir.toString()))
-                binding.edtWeight.setText(child.bbBayi.toString())
-                binding.edtHeight.setText(child.tbBayi.toString())
-                binding.edtAlergi.setText(child.alergi)
+                binding.apply {
+                    btnSave.text = resources.getString(R.string.update)
+                    edtName.setText(child.nama)
+                    edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir.toString()))
+                    edtWeight.setText(child.bbBayi.toString())
+                    edtHeight.setText(child.tbBayi.toString())
+                    edtAlergi.setText(child.alergi)
+                    btnDelete.setOnClickListener {
+                        MaterialAlertDialogBuilder(this@AddEditChildActivity)
+                            .setTitle(resources.getString(R.string.title_delete))
+                            .setMessage(resources.getString(R.string.sure))
+                            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+
+                            }
+                            .setPositiveButton(resources.getString(R.string.title_delete)) { dialog, which ->
+                                childrenViewModel.deleteChild(MyDateFormat.TOKEN, child.id).observe(this@AddEditChildActivity){result ->
+                                    if (result != null) {
+                                        when(result) {
+                                            is Resource.Loading -> {
+                                                showLoading(true)
+                                            }
+                                            is Resource.Success -> {
+                                                showLoading(false)
+                                                Toast.makeText(this@AddEditChildActivity, resources.getString(R.string.success), Toast.LENGTH_SHORT).show()
+                                                finish()
+                                            }
+                                            is Resource.Error -> {
+                                                showLoading(false)
+                                                Toast.makeText(
+                                                    this@AddEditChildActivity,
+                                                    "Failure : " + result.error,
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .show()
+                    }
+                }
                 when(child.jkBayi) {
-                    "Perempuan" -> binding.radioButton2.isChecked = true
-                    "Laki-laki" -> binding.radioButton1.isChecked = true
+                    "P" -> binding.radioButton2.isChecked = true
+                    "L" -> binding.radioButton1.isChecked = true
                 }
             }
         }
@@ -108,9 +144,9 @@ class AddEditChildActivity : AppCompatActivity() {
                     tglLahir = birthday,
                     alergi = alergi,
                     jkBayi = when(gender){
-                        R.id.radio_button_1 -> "laki-laki"
-                        R.id.radio_button_2 -> "Perempuan"
-                        else -> "Laki-laki"},
+                        R.id.radio_button_1 -> "L"
+                        R.id.radio_button_2 -> "P"
+                        else -> "L"},
                     id = "tes",
                     user = "tes"
                 )

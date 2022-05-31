@@ -1,9 +1,6 @@
 package com.tezaalfian.simpasi.core.data.source.remote.network
 
-import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
-import com.tezaalfian.simpasi.core.data.source.remote.response.LoginResponse
-import com.tezaalfian.simpasi.core.data.source.remote.response.RegisterResponse
-import com.tezaalfian.simpasi.core.data.source.remote.response.UpdateChildResponse
+import com.tezaalfian.simpasi.core.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -67,5 +64,5 @@ interface ApiService {
     suspend fun deleteChild(
         @Header("auth-token") token: String,
         @Path("id") id: String
-    ): ChildResponse
+    ): DeleteChildResponse
 }

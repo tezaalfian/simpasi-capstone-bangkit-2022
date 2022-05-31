@@ -9,6 +9,7 @@ import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.data.source.local.room.ChildDao
 import com.tezaalfian.simpasi.core.data.source.remote.network.ApiService
 import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
+import com.tezaalfian.simpasi.core.data.source.remote.response.DeleteChildResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.UpdateChildResponse
 import okhttp3.internal.readMedium
@@ -36,6 +37,27 @@ class ChildRepository private constructor(
             emitSource(localData)
         }catch (e: Exception){
             emit(Resource.Error(e.message.toString()))
+        }
+    }
+
+    fun deleteChild(token: String, id: String): LiveData<Resource<DeleteChildResponse>> = liveData {
+        emit(Resource.Loading)
+        try {
+            val client = apiService.deleteChild(token, id)
+            try {
+                childDao.delete(id)
+            }catch (e: Exception){
+                emit(Resource.Error(e.message.toString()))
+            }
+            emit(Resource.Success(client))
+        }catch (throwable: HttpException){
+            try {
+                throwable.response()?.errorBody()?.source()?.let {
+                    emit(Resource.Error(it.toString()))
+                }
+            } catch (exception: java.lang.Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
         }
     }
 
@@ -85,8 +107,14 @@ class ChildRepository private constructor(
 
             }
             emit(Resource.Success(client))
-        }catch (e: Exception){
-            emit(Resource.Error(e.message.toString()))
+        }catch (throwable: HttpException){
+            try {
+                throwable.response()?.errorBody()?.source()?.let {
+                    emit(Resource.Error(it.toString()))
+                }
+            } catch (exception: java.lang.Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
         }
     }
 

@@ -34,4 +34,6 @@
     <string name="alergi">Alergi</string>
     <string name="error_validation">Enter your %1$s</string>
     <string name="success">Success</string>
+    <string name="sure">Are you sure ?</string>
+    <string name="cancel">cancel</string>
 </resources>

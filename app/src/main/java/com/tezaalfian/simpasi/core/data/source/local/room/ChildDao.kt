@@ -19,6 +19,9 @@ interface ChildDao {
     @Query("DELETE FROM child")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM child WHERE id = :id")
+    suspend fun delete(id: String)
+
     @Update
     suspend fun updateChild(child: ChildEntity): Int
 }
