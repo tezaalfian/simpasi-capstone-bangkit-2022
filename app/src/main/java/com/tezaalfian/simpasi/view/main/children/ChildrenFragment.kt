@@ -63,7 +63,9 @@ class ChildrenFragment : Fragment() {
         }
         binding?.rvChildren?.adapter = childAdapter
         binding?.btnAddChildren?.setOnClickListener {
-            startActivity(Intent(activity, AddEditChildActivity::class.java))
+            val intent = Intent(activity, AddEditChildActivity::class.java)
+            intent.putExtra(AddEditChildActivity.STATE, "add")
+            startActivity(intent)
         }
     }
 

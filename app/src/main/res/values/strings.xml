@@ -30,4 +30,7 @@
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="alergi">Alergi</string>
+    <string name="error_validation">Enter your %1$s</string>
 </resources>

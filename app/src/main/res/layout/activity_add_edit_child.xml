@@ -20,6 +20,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -35,7 +36,8 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:inputType="date"
+                android:id="@+id/edt_birthday"
+                android:inputType="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -51,6 +53,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_birthday">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -67,6 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_weight">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -102,10 +106,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:hint="@string/height"
+            android:hint="@string/alergi"
             app:layout_constraintTop_toBottomOf="@id/eg_gender">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_alergi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
