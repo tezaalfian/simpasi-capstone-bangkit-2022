@@ -2,6 +2,7 @@ package com.tezaalfian.simpasi.view.main.children
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,10 +51,6 @@ class ChildrenFragment : Fragment() {
 
     private fun loadData() {
         val childAdapter = ListChildAdapter()
-        childAdapter.setOnItemClickCallback(object : ListChildAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: ChildEntity) {
-            }
-        })
         binding?.rvChildren?.adapter = childAdapter
         childrenViewModel.getChildren(MyDateFormat.TOKEN).observe(viewLifecycleOwner){ child ->
             if (child != null) {
@@ -74,11 +71,6 @@ class ChildrenFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        loadData()
     }
 
     override fun onDestroyView() {

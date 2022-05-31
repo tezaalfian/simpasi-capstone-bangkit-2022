@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
+import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
 import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.utils.MyDateFormat
@@ -54,7 +55,17 @@ class AddEditChildActivity : AppCompatActivity() {
                 binding.btnDelete.visibility = View.GONE
             }
             "edit" -> {
+                val child = intent.getParcelableExtra<ChildEntity>(EXTRA_CHILD)
                 binding.btnDelete.text = resources.getString(R.string.update)
+                binding.edtName.setText(child?.nama)
+                binding.edtBirthday.setText(MyDateFormat.myLocalDateFormat(child?.tglLahir.toString()))
+                binding.edtWeight.setText(child?.bbBayi.toString())
+                binding.edtHeight.setText(child?.tbBayi.toString())
+                binding.edtAlergi.setText(child?.alergi)
+                when(child?.jkBayi) {
+                    "Perempuan" -> binding.radioButton2.isChecked = true
+                    "Laki-laki" -> binding.radioButton1.isChecked = true
+                }
             }
         }
     }
@@ -137,10 +148,6 @@ class AddEditChildActivity : AppCompatActivity() {
     private fun updateChild(child: ChildResponse) {
     }
 
-    companion object {
-        const val STATE = "add"
-    }
-
     private fun showLoading(isLoading: Boolean) {
         binding.apply {
             edtName.isEnabled = !isLoading
@@ -158,5 +165,10 @@ class AddEditChildActivity : AppCompatActivity() {
                 viewProgressbar.animateVisibility(false)
             }
         }
+    }
+
+    companion object {
+        const val STATE = "add"
+        const val EXTRA_CHILD = "extra_child"
     }
 }
