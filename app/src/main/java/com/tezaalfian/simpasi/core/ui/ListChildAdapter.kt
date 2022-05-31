@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tezaalfian.simpasi.R
-import com.tezaalfian.simpasi.core.domain.model.Child
+import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.utils.setLocalDateFormat
 import com.tezaalfian.simpasi.databinding.ItemChildrenBinding
 import java.util.ArrayList
 
 class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<Child>()
+    private var listData = ArrayList<ChildEntity>()
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    fun setData(newListData: List<Child>?) {
+    fun setData(newListData: List<ChildEntity>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -37,7 +37,7 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
         val child = listData[position]
         holder.binding.apply {
             tvChildName.text = child.nama
-            tvGender.text = child.jkBayi
+            tvGender.text = "${child.jkBayi} /"
             tvTglLahir.setLocalDateFormat(child.tglLahir.toString())
         }
         Glide.with(holder.itemView.context)
@@ -51,6 +51,6 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
     override fun getItemCount() = listData.size
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: Child)
+        fun onItemClicked(data: ChildEntity)
     }
 }

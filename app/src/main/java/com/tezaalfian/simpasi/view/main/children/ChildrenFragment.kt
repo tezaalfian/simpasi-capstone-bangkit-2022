@@ -9,9 +9,8 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
-import com.tezaalfian.simpasi.core.domain.model.Child
+import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.ui.ListChildAdapter
 import com.tezaalfian.simpasi.core.utils.MyDateFormat
@@ -35,14 +34,27 @@ class ChildrenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val childAdapter = ListChildAdapter()
-        childAdapter.setOnItemClickCallback(object : ListChildAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: Child) {
-            }
-        })
+
         val factory = ChildViewModelFactory.getInstance(requireActivity())
         childrenViewModel =
             ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
+
+        loadData()
+
+        binding?.btnAddChildren?.setOnClickListener {
+            val intent = Intent(activity, AddEditChildActivity::class.java)
+            intent.putExtra(AddEditChildActivity.STATE, "add")
+            startActivity(intent)
+        }
+    }
+
+    private fun loadData() {
+        val childAdapter = ListChildAdapter()
+        childAdapter.setOnItemClickCallback(object : ListChildAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ChildEntity) {
+            }
+        })
+        binding?.rvChildren?.adapter = childAdapter
         childrenViewModel.getChildren(MyDateFormat.TOKEN).observe(viewLifecycleOwner){ child ->
             if (child != null) {
                 when(child) {
@@ -55,19 +67,18 @@ class ChildrenFragment : Fragment() {
                         binding?.progressBar?.visibility = View.GONE
                         Toast.makeText(
                             requireActivity(),
-                            child.message ?: getString(R.string.something_wrong),
+                            child.error,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
             }
         }
-        binding?.rvChildren?.adapter = childAdapter
-        binding?.btnAddChildren?.setOnClickListener {
-            val intent = Intent(activity, AddEditChildActivity::class.java)
-            intent.putExtra(AddEditChildActivity.STATE, "add")
-            startActivity(intent)
-        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        loadData()
     }
 
     override fun onDestroyView() {

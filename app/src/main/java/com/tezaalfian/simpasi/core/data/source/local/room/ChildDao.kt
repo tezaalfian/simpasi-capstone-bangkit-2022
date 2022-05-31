@@ -11,11 +11,14 @@ import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 interface ChildDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertChildren(tourism: List<ChildEntity>)
+    suspend fun insertChildren(tourism: List<ChildEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertChild(tourism: ChildEntity)
 
     @Query("SELECT * FROM child")
     fun getChildren(): LiveData<List<ChildEntity>>
 
     @Query("DELETE FROM child")
-    fun deleteChildren()
+    suspend fun deleteAll()
 }

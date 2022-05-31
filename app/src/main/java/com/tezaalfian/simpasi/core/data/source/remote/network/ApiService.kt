@@ -26,9 +26,9 @@ interface ApiService {
     ): LoginResponse
 
     @GET("bayi")
-    fun getChildren(
+    suspend fun getChildren(
         @Header("auth-token") token: String,
-    ): Call<List<ChildResponse>>
+    ): List<ChildResponse>
 
     @GET("bayi/{id}")
     suspend fun getChild(
@@ -38,7 +38,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("bayi")
-    fun addChild(
+    suspend fun addChild(
         @Header("auth-token") token: String,
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
@@ -46,7 +46,8 @@ interface ApiService {
         @Field("tb_bayi") tb_bayi: Int,
         @Field("bb_bayi") bb_bayi: Int,
         @Field("alergi") alergi: String? = null,
-    ): Call<ChildResponse>
+        @Field("umur") umur: Int = 0
+    ): ChildResponse
 
     @FormUrlEncoded
     @PUT("bayi/{id}")

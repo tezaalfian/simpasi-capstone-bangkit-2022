@@ -1,44 +1,41 @@
 package com.tezaalfian.simpasi.core.data.source.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.tezaalfian.simpasi.core.data.Resource
-import com.tezaalfian.simpasi.core.data.source.NetworkBoundResource
-import com.tezaalfian.simpasi.core.data.source.local.ChildDataSource as LocalDataSource
-import com.tezaalfian.simpasi.core.data.source.remote.RemoteDataSource
-import com.tezaalfian.simpasi.core.data.source.remote.network.ApiResponse
+import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
+import com.tezaalfian.simpasi.core.data.source.local.room.ChildDao
+import com.tezaalfian.simpasi.core.data.source.remote.network.ApiService
 import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
-import com.tezaalfian.simpasi.core.domain.model.Child
-import com.tezaalfian.simpasi.core.domain.repository.IChildRepository
-import com.tezaalfian.simpasi.core.utils.AppExecutors
-import com.tezaalfian.simpasi.core.utils.DataMapper
 
 class ChildRepository private constructor(
-    private val remoteDataSource: RemoteDataSource,
-    private val childDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
-) : IChildRepository{
-    override fun getChildren(token: String): LiveData<Resource<List<Child>>> =
-        object : NetworkBoundResource<List<Child>, List<ChildResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Child>> {
-                return Transformations.map(childDataSource.getChildren()) {
-                    DataMapper.mapEntitiesToDomain(it)
-                }
-            }
+    private val apiService: ApiService,
+    private val childDao: ChildDao
+) {
+    fun getChildren(token: String): LiveData<Resource<List<ChildEntity>>> = liveData {
+        emit(Resource.Loading)
+        try {
+            val client = apiService.getChildren(token)
+            childDao.deleteAll()
+            childDao.insertChildren(client.map {
+                ChildEntity(
+                    it.id, it.nama, it.tglLahir, it.umur, it.tbBayi, it.bbBayi, it.alergi, it.user, it.jkBayi, it.tglTerdaftar
+                )
+            })
+        }catch (e: Exception){
+            emit(Resource.Error(e.message.toString()))
+        }
+        try {
+            val localData : LiveData<Resource<List<ChildEntity>>> = childDao.getChildren().map { Resource.Success(it) }
+            emitSource(localData)
+        }catch (e: Exception){
+            emit(Resource.Error(e.message.toString()))
+        }
+    }
 
-            override fun shouldFetch(data: List<Child>?): Boolean = true
-
-            override fun createCall(): LiveData<ApiResponse<List<ChildResponse>>> =
-                remoteDataSource.getChildren(token)
-
-            override fun saveCallResult(data: List<ChildResponse>) {
-                val tourismList = DataMapper.mapResponsesToEntities(data)
-                childDataSource.insertChildren(tourismList)
-            }
-        }.asLiveData()
-
-    override fun addChild(
+    fun addChild(
         token: String,
         nama: String,
         tglLahir: String,
@@ -46,31 +43,23 @@ class ChildRepository private constructor(
         tb_bayi: Int,
         bb_bayi: Int,
         alergi: String?
-    ): LiveData<Resource<Child>> {
-        val result = MediatorLiveData<Resource<Child>>()
-        val apiResponse = remoteDataSource.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi, alergi)
-        result.addSource(apiResponse) { response ->
-            when (response) {
-                is ApiResponse.Success -> {
-                    appExecutors.mainThread().execute {
-                        try {
-                            result.value = Resource.Success(DataMapper.mapResponseToDomain(response.data))
-                        }catch (e: Exception){
-                            result.value = Resource.Error(e.message.toString())
-                        }
-                    }
-                }
-                is ApiResponse.Error -> {
-                    appExecutors.mainThread().execute {
-                        result.value = Resource.Error(response.errorMessage)
-                    }
-                }
-                is ApiResponse.Empty -> {
+    ): LiveData<Resource<ChildResponse>> = liveData {
+        emit(Resource.Loading)
+        try {
+            val client = apiService.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi, alergi)
+            try {
+                childDao.insertChild(
+                    ChildEntity(
+                        client.id, client.nama, client.tglLahir, client.umur, client.tbBayi, client.bbBayi, client.alergi, client.user, client.jkBayi, client.tglTerdaftar
+                    )
+                )
+            }catch (e: Exception){
 
-                }
             }
+            emit(Resource.Success(client))
+        }catch (e: Exception){
+            emit(Resource.Error(e.message.toString()))
         }
-        return result
     }
 
     companion object {
@@ -78,12 +67,11 @@ class ChildRepository private constructor(
         private var instance: ChildRepository? = null
 
         fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
+            apiService: ApiService,
+            childDao: ChildDao
         ): ChildRepository =
             instance ?: synchronized(this) {
-                instance ?: ChildRepository(remoteData, localData, appExecutors)
+                instance ?: ChildRepository(apiService, childDao)
             }
     }
 }

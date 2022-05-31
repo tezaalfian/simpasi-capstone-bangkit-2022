@@ -2,22 +2,17 @@ package com.tezaalfian.simpasi.view.main.children
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
-import com.tezaalfian.simpasi.core.domain.model.Child
+import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
 import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.utils.MyDateFormat
 import com.tezaalfian.simpasi.core.utils.animateVisibility
 import com.tezaalfian.simpasi.databinding.ActivityAddEditChildBinding
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.seconds
 
 class AddEditChildActivity : AppCompatActivity() {
 
@@ -50,10 +45,9 @@ class AddEditChildActivity : AppCompatActivity() {
         datePicker.addOnPositiveButtonClickListener {
             binding.edtBirthday.setText(MyDateFormat.timeToDate(time = it))
         }
+
         binding.btnSave.setOnClickListener {
-            if (state != null) {
-                getData(state)
-            }
+            getData(state)
         }
         when(state){
             "add" -> {
@@ -92,14 +86,14 @@ class AddEditChildActivity : AppCompatActivity() {
                 binding.tvBirthday.error = resources.getString(R.string.error_validation, "birthday")
             }
             else -> {
-                val child = Child(
+                val child = ChildResponse(
                     nama = name,
                     bbBayi = weight.toInt(),
                     tbBayi = height.toInt(),
                     tglLahir = birthday,
                     alergi = alergi,
                     jkBayi = when(gender){
-                        R.id.radio_button_1 -> "Laki-laki"
+                        R.id.radio_button_1 -> "laki-laki"
                         R.id.radio_button_2 -> "Perempuan"
                         else -> "Laki-laki"},
                     id = "tes",
@@ -113,7 +107,7 @@ class AddEditChildActivity : AppCompatActivity() {
         }
     }
 
-    private fun addChild(child: Child) {
+    private fun addChild(child: ChildResponse) {
         childrenViewModel.addChild(
             MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.tbBayi, child.bbBayi, child.alergi
         ).observe(this){result ->
@@ -125,13 +119,13 @@ class AddEditChildActivity : AppCompatActivity() {
                     is Resource.Success -> {
                         showLoading(false)
                         Toast.makeText(this, resources.getString(R.string.success), Toast.LENGTH_SHORT).show()
-//                        finish()
+                        finish()
                     }
                     is Resource.Error -> {
                         showLoading(false)
                         Toast.makeText(
                             this,
-                            "Failure : " + result.message,
+                            "Failure : " + result.error,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -140,7 +134,7 @@ class AddEditChildActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateChild(child: Child) {
+    private fun updateChild(child: ChildResponse) {
     }
 
     companion object {

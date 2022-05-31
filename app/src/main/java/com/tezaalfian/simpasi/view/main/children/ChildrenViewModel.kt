@@ -1,11 +1,11 @@
 package com.tezaalfian.simpasi.view.main.children
 
 import androidx.lifecycle.ViewModel
-import com.tezaalfian.simpasi.core.domain.usecase.ChildUseCase
+import com.tezaalfian.simpasi.core.data.source.repository.ChildRepository
 
-class ChildrenViewModel(private val childUseCase: ChildUseCase) : ViewModel() {
+class ChildrenViewModel(private val childRepository: ChildRepository) : ViewModel() {
 
-    fun getChildren(token: String) = childUseCase.getChildren(token)
+    fun getChildren(token: String) = childRepository.getChildren(token)
 
     fun addChild(token: String,
                  nama: String,
@@ -14,5 +14,5 @@ class ChildrenViewModel(private val childUseCase: ChildUseCase) : ViewModel() {
                  tb_bayi: Int,
                  bb_bayi: Int,
                  alergi: String?)
-    = childUseCase.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi,alergi)
+    = childRepository.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi,alergi)
 }
