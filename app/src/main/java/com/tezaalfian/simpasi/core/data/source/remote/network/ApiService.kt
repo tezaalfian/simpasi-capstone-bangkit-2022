@@ -56,11 +56,11 @@ interface ApiService {
         @Path("id") id: String,
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
-        @Field("umur") umur: Int,
         @Field("jk_bayi") jk_bayi: String? = null,
         @Field("tb_bayi") tb_bayi: Int,
         @Field("bb_bayi") bb_bayi: Int,
-        @Field("alergi") alergi: String,
+        @Field("alergi") alergi: String? = null,
+        @Field("umur") umur: Int = 0,
     ): UpdateChildResponse
 
     @DELETE("bayi/{id}")

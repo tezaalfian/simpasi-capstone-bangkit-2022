@@ -19,6 +19,7 @@ class AddEditChildActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditChildBinding
     private lateinit var childrenViewModel: ChildrenViewModel
+    private lateinit var child: ChildEntity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +56,17 @@ class AddEditChildActivity : AppCompatActivity() {
                 binding.btnDelete.visibility = View.GONE
             }
             "edit" -> {
-                val child = intent.getParcelableExtra<ChildEntity>(EXTRA_CHILD)
+                val childExtra = intent.getParcelableExtra<ChildEntity>(EXTRA_CHILD)
+                if (childExtra != null) {
+                    this.child = childExtra
+                }
                 binding.btnDelete.text = resources.getString(R.string.update)
-                binding.edtName.setText(child?.nama)
-                binding.edtBirthday.setText(MyDateFormat.myLocalDateFormat(child?.tglLahir.toString()))
-                binding.edtWeight.setText(child?.bbBayi.toString())
-                binding.edtHeight.setText(child?.tbBayi.toString())
-                binding.edtAlergi.setText(child?.alergi)
-                when(child?.jkBayi) {
+                binding.edtName.setText(child.nama)
+                binding.edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir.toString()))
+                binding.edtWeight.setText(child.bbBayi.toString())
+                binding.edtHeight.setText(child.tbBayi.toString())
+                binding.edtAlergi.setText(child.alergi)
+                when(child.jkBayi) {
                     "Perempuan" -> binding.radioButton2.isChecked = true
                     "Laki-laki" -> binding.radioButton1.isChecked = true
                 }
@@ -145,7 +149,32 @@ class AddEditChildActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateChild(child: ChildResponse) {
+    private fun updateChild(data: ChildResponse) {
+        childrenViewModel.editChild(MyDateFormat.TOKEN,
+        ChildEntity(
+            child.id, data.nama, data.tglLahir, 0, data.tbBayi, data.bbBayi, data.alergi, child.user, data.jkBayi
+        )).observe(this){ result ->
+            if (result != null) {
+                when(result) {
+                    is Resource.Loading -> {
+                        showLoading(true)
+                    }
+                    is Resource.Success -> {
+                        showLoading(false)
+                        Toast.makeText(this, resources.getString(R.string.success), Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    is Resource.Error -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            this,
+                            "Failure : " + result.error,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

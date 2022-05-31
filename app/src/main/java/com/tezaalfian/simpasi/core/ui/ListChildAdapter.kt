@@ -29,7 +29,7 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
             binding.apply {
                 tvChildName.text = child.nama
                 tvGender.text = "${child.jkBayi} /"
-                tvTglLahir.setLocalDateFormat(child.tglLahir)
+                tvBb.text = "${child.bbBayi} kg"
                 itemView.setOnClickListener {
                     val intent = Intent(context, AddEditChildActivity::class.java)
                     intent.putExtra(AddEditChildActivity.STATE, "edit")

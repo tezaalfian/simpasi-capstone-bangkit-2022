@@ -1,10 +1,7 @@
 package com.tezaalfian.simpasi.core.data.source.local.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 
 @Dao
@@ -21,4 +18,7 @@ interface ChildDao {
 
     @Query("DELETE FROM child")
     suspend fun deleteAll()
+
+    @Update
+    suspend fun updateChild(child: ChildEntity): Int
 }

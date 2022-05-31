@@ -9,6 +9,10 @@ import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.data.source.local.room.ChildDao
 import com.tezaalfian.simpasi.core.data.source.remote.network.ApiService
 import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
+import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
+import com.tezaalfian.simpasi.core.data.source.remote.response.UpdateChildResponse
+import okhttp3.internal.readMedium
+import retrofit2.HttpException
 
 class ChildRepository private constructor(
     private val apiService: ApiService,
@@ -32,6 +36,30 @@ class ChildRepository private constructor(
             emitSource(localData)
         }catch (e: Exception){
             emit(Resource.Error(e.message.toString()))
+        }
+    }
+
+    fun editChild(
+        token: String,
+        child: ChildEntity,
+    ): LiveData<Resource<UpdateChildResponse>> = liveData {
+        emit(Resource.Loading)
+        try {
+            val client = apiService.editChild(token, child.id, child.nama, child.tglLahir, child.jkBayi, child.tbBayi, child.bbBayi, child.alergi)
+            try {
+                childDao.updateChild(child)
+            }catch (e: Exception){
+                emit(Resource.Error(e.message.toString()))
+            }
+            emit(Resource.Success(client))
+        }catch (throwable: HttpException){
+            try {
+                throwable.response()?.errorBody()?.source()?.let {
+                    emit(Resource.Error(it.toString()))
+                }
+            } catch (exception: java.lang.Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
         }
     }
 

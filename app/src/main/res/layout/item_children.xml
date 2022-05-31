@@ -45,7 +45,7 @@
             tools:text="@string/weight" />
 
         <TextView
-            android:id="@+id/tv_tglLahir"
+            android:id="@+id/tv_bb"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"

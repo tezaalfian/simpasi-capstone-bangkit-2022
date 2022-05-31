@@ -19,7 +19,7 @@ object MyDateFormat {
     fun myLocalDateFormat(timestamp: String, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
         val sdf = SimpleDateFormat(format, Locale.US)
         val date = sdf.parse(timestamp) as Date
-        return DateFormat.getDateInstance(DateFormat.FULL).format(date)
+        return DateFormat.getDateInstance(DateFormat.YEAR_FIELD).format(date)
     }
 
     const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkwOGYxMzQwOWYxNGY1NzZjZTgyNGQiLCJpYXQiOjE2NTM3MzA3ODV9.lMzYrfJWqmzk3xKlS2fde_wWeS16jvglmvaeu2qhyJ0"
