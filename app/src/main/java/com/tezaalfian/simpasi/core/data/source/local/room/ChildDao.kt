@@ -16,4 +16,6 @@ interface ChildDao {
     @Query("SELECT * FROM child")
     fun getChildren(): LiveData<List<ChildEntity>>
 
+    @Query("DELETE FROM child")
+    fun deleteChildren()
 }

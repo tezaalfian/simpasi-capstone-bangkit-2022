@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tezaalfian.simpasi.R
+import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.domain.model.Child
+import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.utils.MyDateFormat
+import com.tezaalfian.simpasi.core.utils.animateVisibility
 import com.tezaalfian.simpasi.databinding.ActivityAddEditChildBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,6 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 class AddEditChildActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditChildBinding
+    private lateinit var childrenViewModel: ChildrenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +30,12 @@ class AddEditChildActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         this.title = "Children"
+
+        val state = intent.getStringExtra(STATE).toString()
+
+        val factory = ChildViewModelFactory.getInstance(this)
+        childrenViewModel =
+            ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
 
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -38,7 +50,6 @@ class AddEditChildActivity : AppCompatActivity() {
         datePicker.addOnPositiveButtonClickListener {
             binding.edtBirthday.setText(MyDateFormat.timeToDate(time = it))
         }
-        val state = intent.getStringExtra(STATE)
         binding.btnSave.setOnClickListener {
             if (state != null) {
                 getData(state)
@@ -90,7 +101,7 @@ class AddEditChildActivity : AppCompatActivity() {
                     jkBayi = when(gender){
                         R.id.radio_button_1 -> "Laki-laki"
                         R.id.radio_button_2 -> "Perempuan"
-                        else -> null},
+                        else -> "Laki-laki"},
                     id = "tes",
                     user = "tes"
                 )
@@ -103,7 +114,30 @@ class AddEditChildActivity : AppCompatActivity() {
     }
 
     private fun addChild(child: Child) {
-        Log.d("CHILD", child.toString())
+        childrenViewModel.addChild(
+            MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.tbBayi, child.bbBayi, child.alergi
+        ).observe(this){result ->
+            if (result != null) {
+                when(result) {
+                    is Resource.Loading -> {
+                        showLoading(true)
+                    }
+                    is Resource.Success -> {
+                        showLoading(false)
+                        Toast.makeText(this, resources.getString(R.string.success), Toast.LENGTH_SHORT).show()
+//                        finish()
+                    }
+                    is Resource.Error -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            this,
+                            "Failure : " + result.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun updateChild(child: Child) {
@@ -111,5 +145,24 @@ class AddEditChildActivity : AppCompatActivity() {
 
     companion object {
         const val STATE = "add"
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.apply {
+            edtName.isEnabled = !isLoading
+            edtBirthday.isEnabled = !isLoading
+            edtHeight.isEnabled = !isLoading
+            edtWeight.isEnabled = !isLoading
+            edtAlergi.isEnabled = !isLoading
+            egGender.isEnabled = !isLoading
+            btnSave.isEnabled = !isLoading
+            btnDelete.isEnabled = !isLoading
+
+            if (isLoading) {
+                viewProgressbar.animateVisibility(true)
+            } else {
+                viewProgressbar.animateVisibility(false)
+            }
+        }
     }
 }

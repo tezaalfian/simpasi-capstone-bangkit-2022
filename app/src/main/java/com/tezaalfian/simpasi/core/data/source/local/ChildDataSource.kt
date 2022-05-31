@@ -6,7 +6,10 @@ import com.tezaalfian.simpasi.core.data.source.local.room.ChildDao
 
 class ChildDataSource private constructor(private val childDao: ChildDao){
 
-    fun getChildren(): LiveData<List<ChildEntity>> = childDao.getChildren()
+    fun getChildren(): LiveData<List<ChildEntity>> {
+        childDao.deleteChildren()
+        return childDao.getChildren()
+    }
 
     fun insertChildren(childList: List<ChildEntity>) = childDao.insertChildren(childList)
 

@@ -11,16 +11,16 @@ data class ChildResponse(
 	val nama: String,
 
 	@field:SerializedName("tglLahir")
-	val tglLahir: String? = null,
+	val tglLahir: String,
 
 	@field:SerializedName("umur")
 	val umur: Int? = null,
 
 	@field:SerializedName("tb_bayi")
-	val tbBayi: Int? = null,
+	val tbBayi: Int,
 
 	@field:SerializedName("bb_bayi")
-	val bbBayi: Int? = null,
+	val bbBayi: Int,
 
 	@field:SerializedName("alergi")
 	val alergi: String? = null,
@@ -29,7 +29,7 @@ data class ChildResponse(
 	val user: String,
 
 	@field:SerializedName("jk_bayi")
-	val jkBayi: String? = null,
+	val jkBayi: String,
 
 	@field:SerializedName("tglTerdaftar")
 	val tglTerdaftar: String? = null

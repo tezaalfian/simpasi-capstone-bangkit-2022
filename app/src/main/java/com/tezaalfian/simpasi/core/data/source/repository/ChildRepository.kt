@@ -1,6 +1,7 @@
 package com.tezaalfian.simpasi.core.data.source.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.source.NetworkBoundResource
@@ -36,6 +37,41 @@ class ChildRepository private constructor(
                 childDataSource.insertChildren(tourismList)
             }
         }.asLiveData()
+
+    override fun addChild(
+        token: String,
+        nama: String,
+        tglLahir: String,
+        jk_bayi: String,
+        tb_bayi: Int,
+        bb_bayi: Int,
+        alergi: String?
+    ): LiveData<Resource<Child>> {
+        val result = MediatorLiveData<Resource<Child>>()
+        val apiResponse = remoteDataSource.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi, alergi)
+        result.addSource(apiResponse) { response ->
+            when (response) {
+                is ApiResponse.Success -> {
+                    appExecutors.mainThread().execute {
+                        try {
+                            result.value = Resource.Success(DataMapper.mapResponseToDomain(response.data))
+                        }catch (e: Exception){
+                            result.value = Resource.Error(e.message.toString())
+                        }
+                    }
+                }
+                is ApiResponse.Error -> {
+                    appExecutors.mainThread().execute {
+                        result.value = Resource.Error(response.errorMessage)
+                    }
+                }
+                is ApiResponse.Empty -> {
+
+                }
+            }
+        }
+        return result
+    }
 
     companion object {
         @Volatile

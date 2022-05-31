@@ -17,16 +17,16 @@ data class ChildEntity(
     val nama: String,
 
     @ColumnInfo(name = "tglLahir")
-    val tglLahir: String? = null,
+    val tglLahir: String,
 
     @ColumnInfo(name = "umur")
     val umur: Int? = null,
 
     @ColumnInfo(name = "tb_bayi")
-    val tbBayi: Int? = null,
+    val tbBayi: Int,
 
     @ColumnInfo(name = "bb_bayi")
-    val bbBayi: Int? = null,
+    val bbBayi: Int,
 
     @ColumnInfo(name = "alergi")
     val alergi: String? = null,
@@ -35,7 +35,7 @@ data class ChildEntity(
     val user: String,
 
     @ColumnInfo(name = "jk_bayi")
-    val jkBayi: String? = null,
+    val jkBayi: String,
 
     @ColumnInfo(name = "tgl_terdaftar")
     val tglTerdaftar: String? = null

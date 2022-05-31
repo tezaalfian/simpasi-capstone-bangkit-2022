@@ -23,7 +23,6 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     fun getChildren(token: String): LiveData<ApiResponse<List<ChildResponse>>> {
         val resultData = MutableLiveData<ApiResponse<List<ChildResponse>>>()
-
         //get data from remote api
         val client = apiService.getChildren(token)
         client.enqueue(object : Callback<List<ChildResponse>> {
@@ -39,7 +38,33 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
                 Log.e("RemoteDataSource", t.message.toString())
             }
         })
+        return resultData
+    }
 
+    fun addChild(
+        token: String,
+        nama: String,
+        tglLahir: String,
+        jk_bayi: String,
+        tb_bayi: Int,
+        bb_bayi: Int,
+        alergi: String?
+    ): LiveData<ApiResponse<ChildResponse>>{
+        val resultData = MutableLiveData<ApiResponse<ChildResponse>>()
+        val client = apiService.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi, alergi)
+        client.enqueue(object : Callback<ChildResponse> {
+            override fun onResponse(call: Call<ChildResponse>, response: Response<ChildResponse>) {
+                val dataArray = response.body()
+                Log.e("RemoteDataSource", dataArray.toString())
+                resultData.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<ChildResponse>, t: Throwable) {
+                resultData.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+
+        })
         return resultData
     }
 }

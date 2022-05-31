@@ -33,4 +33,5 @@
     <string name="update">Update</string>
     <string name="alergi">Alergi</string>
     <string name="error_validation">Enter your %1$s</string>
+    <string name="success">Success</string>
 </resources>

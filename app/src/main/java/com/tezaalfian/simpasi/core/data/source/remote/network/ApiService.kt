@@ -36,18 +36,19 @@ interface ApiService {
         @Path("id") id: String
     ): ChildResponse
 
+    @FormUrlEncoded
     @POST("bayi")
-    suspend fun addChild(
+    fun addChild(
         @Header("auth-token") token: String,
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
-        @Field("umur") umur: Int,
-        @Field("jk_bayi") jk_bayi: Gender,
+        @Field("jk_bayi") jk_bayi: String? = null,
         @Field("tb_bayi") tb_bayi: Int,
         @Field("bb_bayi") bb_bayi: Int,
-        @Field("alergi") alergi: String,
-    ): ChildResponse
+        @Field("alergi") alergi: String? = null,
+    ): Call<ChildResponse>
 
+    @FormUrlEncoded
     @PUT("bayi/{id}")
     suspend fun editChild(
         @Header("auth-token") token: String,
@@ -55,7 +56,7 @@ interface ApiService {
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
         @Field("umur") umur: Int,
-        @Field("jk_bayi") jk_bayi: Gender,
+        @Field("jk_bayi") jk_bayi: String? = null,
         @Field("tb_bayi") tb_bayi: Int,
         @Field("bb_bayi") bb_bayi: Int,
         @Field("alergi") alergi: String,
@@ -66,9 +67,4 @@ interface ApiService {
         @Header("auth-token") token: String,
         @Path("id") id: String
     ): ChildResponse
-}
-
-enum class Gender(val s: String) {
-    L("Laki-laki"),
-    P("Perempuan")
 }

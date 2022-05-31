@@ -14,6 +14,7 @@ import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.domain.model.Child
 import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.ui.ListChildAdapter
+import com.tezaalfian.simpasi.core.utils.MyDateFormat
 import com.tezaalfian.simpasi.databinding.FragmentChildrenBinding
 
 class ChildrenFragment : Fragment() {
@@ -42,7 +43,7 @@ class ChildrenFragment : Fragment() {
         val factory = ChildViewModelFactory.getInstance(requireActivity())
         childrenViewModel =
             ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
-        childrenViewModel.getChildren("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkwOGYxMzQwOWYxNGY1NzZjZTgyNGQiLCJpYXQiOjE2NTM3MzA3ODV9.lMzYrfJWqmzk3xKlS2fde_wWeS16jvglmvaeu2qhyJ0").observe(viewLifecycleOwner){ child ->
+        childrenViewModel.getChildren(MyDateFormat.TOKEN).observe(viewLifecycleOwner){ child ->
             if (child != null) {
                 when(child) {
                     is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
