@@ -66,7 +66,6 @@ class AddEditChildActivity : AppCompatActivity() {
                     edtName.setText(child.nama)
                     edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir.toString()))
                     edtWeight.setText(child.bbBayi.toString())
-                    edtHeight.setText(child.tbBayi.toString())
                     edtAlergi.setText(child.alergi)
                     btnDelete.setOnClickListener {
                         MaterialAlertDialogBuilder(this@AddEditChildActivity)
@@ -113,14 +112,12 @@ class AddEditChildActivity : AppCompatActivity() {
     private fun getData(state: String) {
         val name = binding.edtName.text.toString().trim()
         val weight = binding.edtWeight.text.toString().trim()
-        val height = binding.edtHeight.text.toString().trim()
         val alergi = binding.edtAlergi.text.toString().trim()
         val birthday = binding.edtBirthday.text.toString().trim()
         val gender = binding.egGender.checkedRadioButtonId
 
         binding.tvName.error = null
         binding.tvWeight.error = null
-        binding.tvHeight.error = null
         binding.tvBirthday.error = null
 
         when {
@@ -130,9 +127,6 @@ class AddEditChildActivity : AppCompatActivity() {
             weight.isEmpty() -> {
                 binding.tvWeight.error = resources.getString(R.string.error_validation, "weight")
             }
-            height.isEmpty() -> {
-                binding.tvHeight.error = resources.getString(R.string.error_validation, "height")
-            }
             birthday.isEmpty() -> {
                 binding.tvBirthday.error = resources.getString(R.string.error_validation, "birthday")
             }
@@ -140,7 +134,6 @@ class AddEditChildActivity : AppCompatActivity() {
                 val child = ChildResponse(
                     nama = name,
                     bbBayi = weight.toInt(),
-                    tbBayi = height.toInt(),
                     tglLahir = birthday,
                     alergi = alergi,
                     jkBayi = when(gender){
@@ -160,7 +153,7 @@ class AddEditChildActivity : AppCompatActivity() {
 
     private fun addChild(child: ChildResponse) {
         childrenViewModel.addChild(
-            MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.tbBayi, child.bbBayi, child.alergi
+            MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.bbBayi, child.alergi
         ).observe(this){result ->
             if (result != null) {
                 when(result) {
@@ -188,7 +181,7 @@ class AddEditChildActivity : AppCompatActivity() {
     private fun updateChild(data: ChildResponse) {
         childrenViewModel.editChild(MyDateFormat.TOKEN,
         ChildEntity(
-            child.id, data.nama, data.tglLahir, 0, data.tbBayi, data.bbBayi, data.alergi, child.user, data.jkBayi
+            child.id, data.nama, data.tglLahir, data.bbBayi, data.alergi, child.user, data.jkBayi
         )).observe(this){ result ->
             if (result != null) {
                 when(result) {
@@ -217,7 +210,6 @@ class AddEditChildActivity : AppCompatActivity() {
         binding.apply {
             edtName.isEnabled = !isLoading
             edtBirthday.isEnabled = !isLoading
-            edtHeight.isEnabled = !isLoading
             edtWeight.isEnabled = !isLoading
             edtAlergi.isEnabled = !isLoading
             egGender.isEnabled = !isLoading

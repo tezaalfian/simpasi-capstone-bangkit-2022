@@ -12,10 +12,9 @@ class ChildrenViewModel(private val childRepository: ChildRepository) : ViewMode
                  nama: String,
                  tglLahir: String,
                  jk_bayi: String,
-                 tb_bayi: Int,
                  bb_bayi: Int,
                  alergi: String?)
-    = childRepository.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi,alergi)
+    = childRepository.addChild(token, nama, tglLahir, jk_bayi, bb_bayi,alergi)
 
     fun editChild(token: String, child: ChildEntity) = childRepository.editChild(token, child)
 

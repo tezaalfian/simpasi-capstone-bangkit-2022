@@ -13,12 +13,6 @@ data class ChildResponse(
 	@field:SerializedName("tglLahir")
 	val tglLahir: String,
 
-	@field:SerializedName("umur")
-	val umur: Int? = null,
-
-	@field:SerializedName("tb_bayi")
-	val tbBayi: Int,
-
 	@field:SerializedName("bb_bayi")
 	val bbBayi: Int,
 

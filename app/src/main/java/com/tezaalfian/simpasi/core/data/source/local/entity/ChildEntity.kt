@@ -19,12 +19,6 @@ data class ChildEntity(
     @ColumnInfo(name = "tglLahir")
     val tglLahir: String,
 
-    @ColumnInfo(name = "umur")
-    val umur: Int? = null,
-
-    @ColumnInfo(name = "tb_bayi")
-    val tbBayi: Int,
-
     @ColumnInfo(name = "bb_bayi")
     val bbBayi: Int,
 

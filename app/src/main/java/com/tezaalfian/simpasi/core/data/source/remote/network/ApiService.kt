@@ -40,10 +40,8 @@ interface ApiService {
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
         @Field("jk_bayi") jk_bayi: String? = null,
-        @Field("tb_bayi") tb_bayi: Int,
         @Field("bb_bayi") bb_bayi: Int,
-        @Field("alergi") alergi: String? = null,
-        @Field("umur") umur: Int = 0
+        @Field("alergi") alergi: String? = null
     ): ChildResponse
 
     @FormUrlEncoded
@@ -54,10 +52,8 @@ interface ApiService {
         @Field("nama") nama: String,
         @Field("tglLahir") tglLahir: String,
         @Field("jk_bayi") jk_bayi: String? = null,
-        @Field("tb_bayi") tb_bayi: Int,
         @Field("bb_bayi") bb_bayi: Int,
-        @Field("alergi") alergi: String? = null,
-        @Field("umur") umur: Int = 0,
+        @Field("alergi") alergi: String? = null
     ): UpdateChildResponse
 
     @DELETE("bayi/{id}")

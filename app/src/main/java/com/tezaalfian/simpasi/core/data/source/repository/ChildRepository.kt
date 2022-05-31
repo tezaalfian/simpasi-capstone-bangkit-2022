@@ -26,7 +26,7 @@ class ChildRepository private constructor(
             childDao.deleteAll()
             childDao.insertChildren(client.map {
                 ChildEntity(
-                    it.id, it.nama, it.tglLahir, it.umur, it.tbBayi, it.bbBayi, it.alergi, it.user, it.jkBayi, it.tglTerdaftar
+                    it.id, it.nama, it.tglLahir, it.bbBayi, it.alergi, it.user, it.jkBayi, it.tglTerdaftar
                 )
             })
         }catch (e: Exception){
@@ -67,7 +67,7 @@ class ChildRepository private constructor(
     ): LiveData<Resource<UpdateChildResponse>> = liveData {
         emit(Resource.Loading)
         try {
-            val client = apiService.editChild(token, child.id, child.nama, child.tglLahir, child.jkBayi, child.tbBayi, child.bbBayi, child.alergi)
+            val client = apiService.editChild(token, child.id, child.nama, child.tglLahir, child.jkBayi, child.bbBayi, child.alergi)
             try {
                 childDao.updateChild(child)
             }catch (e: Exception){
@@ -90,17 +90,16 @@ class ChildRepository private constructor(
         nama: String,
         tglLahir: String,
         jk_bayi: String,
-        tb_bayi: Int,
         bb_bayi: Int,
         alergi: String?
     ): LiveData<Resource<ChildResponse>> = liveData {
         emit(Resource.Loading)
         try {
-            val client = apiService.addChild(token, nama, tglLahir, jk_bayi, tb_bayi, bb_bayi, alergi)
+            val client = apiService.addChild(token, nama, tglLahir, jk_bayi, bb_bayi, alergi)
             try {
                 childDao.insertChild(
                     ChildEntity(
-                        client.id, client.nama, client.tglLahir, client.umur, client.tbBayi, client.bbBayi, client.alergi, client.user, client.jkBayi, client.tglTerdaftar
+                        client.id, client.nama, client.tglLahir, client.bbBayi, client.alergi, client.user, client.jkBayi, client.tglTerdaftar
                     )
                 )
             }catch (e: Exception){
