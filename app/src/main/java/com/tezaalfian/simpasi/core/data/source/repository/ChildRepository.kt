@@ -1,9 +1,9 @@
 package com.tezaalfian.simpasi.core.data.source.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
+import com.google.gson.Gson
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.data.source.local.room.ChildDao
@@ -12,7 +12,6 @@ import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.DeleteChildResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.UpdateChildResponse
-import okhttp3.internal.readMedium
 import retrofit2.HttpException
 
 class ChildRepository private constructor(
@@ -29,8 +28,13 @@ class ChildRepository private constructor(
                     it.id, it.nama, it.tglLahir, it.bbBayi, it.alergi, it.user, it.jkBayi, it.tglTerdaftar
                 )
             })
-        }catch (e: Exception){
-            emit(Resource.Error(e.message.toString()))
+        }catch (e: HttpException){
+            try {
+                val errorResponse = Gson().fromJson(e.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
         }
         try {
             val localData : LiveData<Resource<List<ChildEntity>>> = childDao.getChildren().map { Resource.Success(it) }
@@ -52,10 +56,9 @@ class ChildRepository private constructor(
             emit(Resource.Success(client))
         }catch (throwable: HttpException){
             try {
-                throwable.response()?.errorBody()?.source()?.let {
-                    emit(Resource.Error(it.toString()))
-                }
-            } catch (exception: java.lang.Exception) {
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
                 emit(Resource.Error(exception.message.toString()))
             }
         }
@@ -76,10 +79,9 @@ class ChildRepository private constructor(
             emit(Resource.Success(client))
         }catch (throwable: HttpException){
             try {
-                throwable.response()?.errorBody()?.source()?.let {
-                    emit(Resource.Error(it.toString()))
-                }
-            } catch (exception: java.lang.Exception) {
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
                 emit(Resource.Error(exception.message.toString()))
             }
         }
@@ -108,10 +110,9 @@ class ChildRepository private constructor(
             emit(Resource.Success(client))
         }catch (throwable: HttpException){
             try {
-                throwable.response()?.errorBody()?.source()?.let {
-                    emit(Resource.Error(it.toString()))
-                }
-            } catch (exception: java.lang.Exception) {
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
                 emit(Resource.Error(exception.message.toString()))
             }
         }

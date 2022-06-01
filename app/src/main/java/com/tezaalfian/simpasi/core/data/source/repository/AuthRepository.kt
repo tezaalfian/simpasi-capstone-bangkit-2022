@@ -9,8 +9,10 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.google.gson.Gson
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.model.User
+import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.LoginResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.RegisterResponse
 import retrofit2.HttpException
@@ -28,9 +30,8 @@ class AuthRepository private constructor(
             emit(Resource.Success(result))
         }catch (throwable: HttpException){
             try {
-                throwable.response()?.errorBody()?.source()?.let {
-                    emit(Resource.Error(it.toString()))
-                }
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
             } catch (exception: Exception) {
                 emit(Resource.Error(exception.message.toString()))
             }
@@ -44,9 +45,8 @@ class AuthRepository private constructor(
             emit(Resource.Success(result))
         }catch (throwable: HttpException){
             try {
-                throwable.response()?.errorBody()?.source()?.let {
-                    emit(Resource.Error(it.toString()))
-                }
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
             } catch (exception: Exception) {
                 emit(Resource.Error(exception.message.toString()))
             }
