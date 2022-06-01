@@ -28,7 +28,11 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
         fun bind(context: Context, child: ChildEntity) {
             binding.apply {
                 tvChildName.text = child.nama
-                tvGender.text = "${child.jkBayi} /"
+                tvGender.text = when(child.jkBayi) {
+                    "L" -> "Laki-laki /"
+                    "P" -> "Perempuan /"
+                    else -> ""
+                }
                 tvBb.text = "${child.bbBayi} kg"
                 itemView.setOnClickListener {
                     val intent = Intent(context, AddEditChildActivity::class.java)
