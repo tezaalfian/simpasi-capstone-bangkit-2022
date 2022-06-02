@@ -2,7 +2,6 @@ package com.tezaalfian.simpasi.core.data.source.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import com.google.gson.Gson
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
@@ -12,13 +11,15 @@ import com.tezaalfian.simpasi.core.data.source.remote.response.ChildResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.DeleteChildResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.UpdateChildResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 
 class ChildRepository private constructor(
     private val apiService: ApiService,
     private val childDao: ChildDao
 ) {
-    fun getChildren(token: String): LiveData<Resource<List<ChildEntity>>> = liveData {
+    fun getChildren(token: String): Flow<Resource<List<ChildEntity>>> = flow {
         emit(Resource.Loading)
         try {
             val client = apiService.getChildren(token)
@@ -37,14 +38,14 @@ class ChildRepository private constructor(
             }
         }
         try {
-            val localData : LiveData<Resource<List<ChildEntity>>> = childDao.getChildren().map { Resource.Success(it) }
-            emitSource(localData)
+            val localData : Flow<Resource<List<ChildEntity>>> = childDao.getChildren().map { Resource.Success(it) }
+            emitAll(localData)
         }catch (e: Exception){
             emit(Resource.Error(e.message.toString()))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    fun deleteChild(token: String, id: String): LiveData<Resource<DeleteChildResponse>> = liveData {
+    fun deleteChild(token: String, id: String): Flow<Resource<DeleteChildResponse>> = flow {
         emit(Resource.Loading)
         try {
             val client = apiService.deleteChild(token, id)
@@ -62,12 +63,12 @@ class ChildRepository private constructor(
                 emit(Resource.Error(exception.message.toString()))
             }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun editChild(
         token: String,
         child: ChildEntity,
-    ): LiveData<Resource<UpdateChildResponse>> = liveData {
+    ): Flow<Resource<UpdateChildResponse>> = flow {
         emit(Resource.Loading)
         try {
             val client = apiService.editChild(token, child.id, child.nama, child.tglLahir, child.jkBayi, child.bbBayi, child.alergi)
@@ -85,7 +86,7 @@ class ChildRepository private constructor(
                 emit(Resource.Error(exception.message.toString()))
             }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun addChild(
         token: String,
@@ -94,7 +95,7 @@ class ChildRepository private constructor(
         jk_bayi: String,
         bb_bayi: Int,
         alergi: String?
-    ): LiveData<Resource<ChildResponse>> = liveData {
+    ): Flow<Resource<ChildResponse>> = flow {
         emit(Resource.Loading)
         try {
             val client = apiService.addChild(token, nama, tglLahir, jk_bayi, bb_bayi, alergi)
@@ -116,7 +117,7 @@ class ChildRepository private constructor(
                 emit(Resource.Error(exception.message.toString()))
             }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     companion object {
         @Volatile

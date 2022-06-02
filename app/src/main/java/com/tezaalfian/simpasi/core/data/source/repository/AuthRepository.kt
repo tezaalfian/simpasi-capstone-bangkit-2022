@@ -7,14 +7,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.google.gson.Gson
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.model.User
 import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.LoginResponse
 import com.tezaalfian.simpasi.core.data.source.remote.response.RegisterResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import java.lang.Exception
 
@@ -23,7 +24,7 @@ class AuthRepository private constructor(
     private val apiService: ApiService
 ){
 
-    fun login(usernameEmail: String, password: String) : LiveData<Resource<LoginResponse>> = liveData {
+    fun login(usernameEmail: String, password: String) : Flow<Resource<LoginResponse>> = flow {
         emit(Resource.Loading)
         try {
             val result = apiService.login(usernameEmail, password)
@@ -36,9 +37,9 @@ class AuthRepository private constructor(
                 emit(Resource.Error(exception.message.toString()))
             }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    fun register(nama: String, email: String, username: String, password: String, confirm_password: String) : LiveData<Resource<RegisterResponse>> = liveData {
+    fun register(nama: String, email: String, username: String, password: String, confirm_password: String) : Flow<Resource<RegisterResponse>> = flow {
         emit(Resource.Loading)
         try {
             val result = apiService.register(nama, email, username, password, confirm_password)
@@ -51,7 +52,7 @@ class AuthRepository private constructor(
                 emit(Resource.Error(exception.message.toString()))
             }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun getToken() : Flow<String> {
         return dataStore.data.map { preferences ->

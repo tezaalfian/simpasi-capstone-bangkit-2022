@@ -1,8 +1,8 @@
 package com.tezaalfian.simpasi.core.data.source.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChildDao {
@@ -14,7 +14,7 @@ interface ChildDao {
     suspend fun insertChild(tourism: ChildEntity)
 
     @Query("SELECT * FROM child")
-    fun getChildren(): LiveData<List<ChildEntity>>
+    fun getChildren(): Flow<List<ChildEntity>>
 
     @Query("DELETE FROM child")
     suspend fun deleteAll()
