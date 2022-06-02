@@ -1,17 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
     tools:context=".view.register.RegisterActivity">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_signup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/signup"
+            android:textColor="@color/blue_500"
+            android:textAlignment="center"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_signup_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:text="@string/name"
+            app:layout_constraintEnd_toEndOf="@+id/tv_signup"
+            app:layout_constraintStart_toStartOf="@+id/tv_signup"
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup" />
+
+        <com.tezaalfian.simpasi.core.ui.customview.EditText
+            android:id="@+id/edt_signup_name"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="@string/name_hint"
+            android:background="@color/Blue_50"
+            app:layout_constraintEnd_toEndOf="@+id/tv_signup_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_signup_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup_name" />
+
+        <TextView
+            android:id="@+id/tv_signup_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/email"
+            app:layout_constraintEnd_toEndOf="@+id/edt_signup_name"
+            app:layout_constraintStart_toStartOf="@+id/edt_signup_name"
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_name" />
+
+        <com.tezaalfian.simpasi.core.ui.customview.EmailEditText
+            android:id="@+id/edt_signup_email"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="@string/email_hint"
+            android:background="@color/Blue_50"
+            app:layout_constraintEnd_toEndOf="@+id/tv_signup_email"
+            app:layout_constraintStart_toStartOf="@+id/tv_signup_email"
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup_email"/>
+
+        <TextView
+            android:id="@+id/tv_signup_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/username"
+            app:layout_constraintEnd_toEndOf="@+id/edt_signup_email"
+            app:layout_constraintStart_toStartOf="@+id/edt_signup_email"
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_email" />
+
+        <com.tezaalfian.simpasi.core.ui.customview.EditText
+            android:id="@+id/edt_signup_username"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="@string/username_hint"
+            android:background="@color/Blue_50"
+            app:layout_constraintEnd_toEndOf="@+id/tv_signup_username"
+            app:layout_constraintStart_toStartOf="@+id/tv_signup_username"
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup_username" />
+
+        <TextView
+            android:id="@+id/tv_signup_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/password"
+            app:layout_constraintEnd_toEndOf="@+id/edt_signup_username"
+            app:layout_constraintStart_toStartOf="@+id/edt_signup_username"
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_username" />
+
+        <com.tezaalfian.simpasi.core.ui.customview.PasswordEditText
+            android:id="@+id/edt_signup_password"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="@string/password_hint"
+            android:background="@color/Blue_50"
+            app:layout_constraintEnd_toEndOf="@+id/tv_signup_password"
+            app:layout_constraintStart_toStartOf="@+id/tv_signup_password"
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup_password" />
+
+        <com.tezaalfian.simpasi.core.ui.customview.PasswordEditText
+            android:id="@+id/edt_signup_confirm_password"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/Blue_50"
+            android:hint="@string/confirm_password_hint"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="@+id/edt_signup_password"
+            app:layout_constraintStart_toStartOf="@+id/edt_signup_password"
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_password" />
+
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue_500"
+            android:text="@string/signup"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="@+id/edt_signup_confirm_password"
+            app:layout_constraintStart_toStartOf="@+id/edt_signup_confirm_password"
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_confirm_password" />
+
+        <TextView
+            android:id="@+id/tv_ket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/signup_keterangan"
+            app:layout_constraintStart_toStartOf="@+id/btn_signup"
+            app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
+
+        <TextView
+            android:id="@+id/tv_signup_login"
+            android:layout_marginLeft="4dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="@color/blue_500"
+            app:layout_constraintEnd_toEndOf="@+id/btn_signup"
+            app:layout_constraintStart_toEndOf="@+id/tv_ket"
+            app:layout_constraintTop_toTopOf="@+id/tv_ket" />
+
+        <RelativeLayout
+            android:id="@+id/view_progressbar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

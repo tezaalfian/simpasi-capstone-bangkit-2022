@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simpasi">
         <activity
+            android:name=".view.main.profile.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.children.AddEditChildActivity"
             android:exported="false" />
         <activity

@@ -19,6 +19,7 @@
     <string name="change_password">Change Password</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="invalid_email">Format email is invalid!</string>
     <string name="username">Username</string>
     <string name="add_to_daily_food">Add to Daily Food</string>
     <string name="search">Search</string>
@@ -35,5 +36,21 @@
     <string name="error_validation">Enter your %1$s</string>
     <string name="success">Success</string>
     <string name="sure">Are you sure ?</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
+    <string name="register_image">Register Image</string>
+    <string name="signup_text">Signup</string>
+    <string name="name_hint">Text Your Name</string>
+    <string name="email_hint">Text Your Email</string>
+    <string name="emailusername_hint">Text Your Email / Username</string>
+    <string name="username_hint">Text Your Username</string>
+    <string name="password_hint">Text Your Password</string>
+    <string name="confirm_password_hint">Confirm Your Password</string>
+    <string name="signup_keterangan">Have Already Account ?</string>
+    <string name="login_keterangan">Dont have any account ?</string>
+    <string name="lupa_password">Forgot your password ?</string>
+    <string name="signup">Signup</string>
+    <string name="min_length_char">Minimum length %1$d character</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
