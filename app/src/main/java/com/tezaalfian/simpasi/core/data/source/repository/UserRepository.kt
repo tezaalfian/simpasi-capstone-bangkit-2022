@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import java.lang.Exception
 
-class AuthRepository private constructor(
+class UserRepository private constructor(
     private val dataStore: DataStore<Preferences>,
     private val apiService: ApiService
 ){
@@ -81,7 +81,7 @@ class AuthRepository private constructor(
 
     companion object {
         @Volatile
-        private var INSTANCE: AuthRepository? = null
+        private var INSTANCE: UserRepository? = null
 
         private val TOKEN = stringPreferencesKey("token")
         private val NAME = stringPreferencesKey("name")
@@ -91,9 +91,9 @@ class AuthRepository private constructor(
         fun getInstance(
             dataStore: DataStore<Preferences>,
             apiService: ApiService
-        ): AuthRepository {
+        ): UserRepository {
             return INSTANCE ?: synchronized(this) {
-                val instance = AuthRepository(dataStore, apiService)
+                val instance = UserRepository(dataStore, apiService)
                 INSTANCE = instance
                 instance
             }
