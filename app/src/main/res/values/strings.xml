@@ -44,6 +44,8 @@
     <string name="emailusername_hint">Text Your Email / Username</string>
     <string name="username_hint">Text Your Username</string>
     <string name="password_hint">Text Your Password</string>
+    <string name="old_password_hint">Text Your Old Password</string>
+    <string name="new_password_hint">Text Your New Password</string>
     <string name="confirm_password_hint">Confirm Your Password</string>
     <string name="signup_keterangan">Have Already Account ?</string>
     <string name="login_keterangan">Dont have any account ?</string>
@@ -53,4 +55,6 @@
     <string name="user_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
 </resources>
