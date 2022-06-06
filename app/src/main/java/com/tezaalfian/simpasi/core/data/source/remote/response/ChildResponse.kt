@@ -16,9 +16,6 @@ data class ChildResponse(
 	@field:SerializedName("bb_bayi")
 	val bbBayi: Int,
 
-	@field:SerializedName("alergi")
-	val alergi: String? = null,
-
 	@field:SerializedName("user")
 	val user: String,
 
