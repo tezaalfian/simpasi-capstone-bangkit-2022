@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
-import com.tezaalfian.simpasi.core.utils.setLocalDateFormat
 import com.tezaalfian.simpasi.databinding.ItemChildrenBinding
 import com.tezaalfian.simpasi.view.main.children.AddEditChildActivity
+import com.tezaalfian.simpasi.view.main.children.BahanActivity
 import java.util.ArrayList
 
 class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>() {
@@ -35,10 +36,21 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
                 }
                 tvBb.text = "${child.bbBayi} kg"
                 itemView.setOnClickListener {
-                    val intent = Intent(context, AddEditChildActivity::class.java)
-                    intent.putExtra(AddEditChildActivity.STATE, "edit")
-                    intent.putExtra(AddEditChildActivity.EXTRA_CHILD, child)
-                    context.startActivity(intent)
+                    MaterialAlertDialogBuilder(context)
+                        .setTitle(context.resources.getString(R.string.title_children))
+                        .setMessage("Pilih Aksi")
+                        .setNegativeButton("Feedback Bahan") { dialog, which ->
+                            val intent = Intent(context, BahanActivity::class.java)
+                            intent.putExtra(BahanActivity.EXTRA_CHILD, child)
+                            context.startActivity(intent)
+                        }
+                        .setPositiveButton("Edit") { dialog, which ->
+                            val intent = Intent(context, AddEditChildActivity::class.java)
+                            intent.putExtra(AddEditChildActivity.STATE, "edit")
+                            intent.putExtra(AddEditChildActivity.EXTRA_CHILD, child)
+                            context.startActivity(intent)
+                        }
+                        .show()
                 }
             }
             Glide.with(itemView.context)

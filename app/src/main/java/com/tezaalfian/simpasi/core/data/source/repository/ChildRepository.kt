@@ -1,9 +1,10 @@
 package com.tezaalfian.simpasi.core.data.source.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
+import android.util.Log
 import com.google.gson.Gson
 import com.tezaalfian.simpasi.core.data.Resource
+import com.tezaalfian.simpasi.core.data.model.Bahan
+import com.tezaalfian.simpasi.core.data.model.Feedback
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.data.source.local.room.ChildDao
 import com.tezaalfian.simpasi.core.data.source.remote.network.ApiService
@@ -26,7 +27,7 @@ class ChildRepository private constructor(
             childDao.deleteAll()
             childDao.insertChildren(client.map {
                 ChildEntity(
-                    it.id, it.nama, it.tglLahir, it.bbBayi, it.alergi, it.user, it.jkBayi, it.tglTerdaftar
+                    it.id, it.nama, it.tglLahir, it.bbBayi, it.user, it.jkBayi, it.tglTerdaftar
                 )
             })
         }catch (e: HttpException){
@@ -71,7 +72,7 @@ class ChildRepository private constructor(
     ): Flow<Resource<UpdateChildResponse>> = flow {
         emit(Resource.Loading)
         try {
-            val client = apiService.editChild(token, child.id, child.nama, child.tglLahir, child.jkBayi, child.bbBayi, child.alergi)
+            val client = apiService.editChild(token, child.id, child.nama, child.tglLahir, child.jkBayi, child.bbBayi)
             try {
                 childDao.updateChild(child)
             }catch (e: Exception){
@@ -88,21 +89,40 @@ class ChildRepository private constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    fun bahan(
+        token: String,
+        id: String,
+        bahan: Bahan
+    ): Flow<Resource<UpdateChildResponse>> = flow {
+        emit(Resource.Loading)
+        try {
+            Log.d("CHILD", bahan.toString())
+            val client = apiService.bahan(token, id, Feedback(bahan))
+            emit(Resource.Success(client))
+        }catch (throwable: HttpException){
+            try {
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
+        }
+    }.flowOn(Dispatchers.IO)
+
     fun addChild(
         token: String,
         nama: String,
         tglLahir: String,
         jk_bayi: String,
-        bb_bayi: Int,
-        alergi: String?
+        bb_bayi: Int
     ): Flow<Resource<ChildResponse>> = flow {
         emit(Resource.Loading)
         try {
-            val client = apiService.addChild(token, nama, tglLahir, jk_bayi, bb_bayi, alergi)
+            val client = apiService.addChild(token, nama, tglLahir, jk_bayi, bb_bayi)
             try {
                 childDao.insertChild(
                     ChildEntity(
-                        client.id, client.nama, client.tglLahir, client.bbBayi, client.alergi, client.user, client.jkBayi, client.tglTerdaftar
+                        client.id, client.nama, client.tglLahir, client.bbBayi, client.user, client.jkBayi, client.tglTerdaftar
                     )
                 )
             }catch (e: Exception){

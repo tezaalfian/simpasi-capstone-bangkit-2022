@@ -6,4 +6,11 @@
         <item>Item 3</item>
         <item>Item 4</item>
     </string-array>
+
+    <string-array name="feedback_items">
+        <item>Suka</item>
+        <item>Tidak Suka</item>
+        <item>Alergi</item>
+        <item>Tidak Tahu</item>
+    </string-array>
 </resources>

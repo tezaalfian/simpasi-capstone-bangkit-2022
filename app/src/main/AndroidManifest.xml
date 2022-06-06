@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simpasi">
         <activity
+            android:name=".view.main.children.BahanActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.profile.ChangePasswordActivity"
             android:exported="false" />
         <activity
@@ -34,7 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".view.main.MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".view.splash.SplashActivity"
             android:exported="true"

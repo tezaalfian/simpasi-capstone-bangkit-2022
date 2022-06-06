@@ -80,22 +80,6 @@
                 android:text="@string/female" />
         </RadioGroup>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tv_alergi"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:hint="@string/alergi"
-            app:layout_constraintTop_toBottomOf="@id/eg_gender">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_alergi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Button
             android:id="@+id/btn_save"
             style="@style/Widget.MaterialComponents.Button.Icon"
@@ -105,7 +89,7 @@
             android:text="@string/save"
             app:icon="@drawable/ic_baseline_add_24"
             app:iconGravity="textStart"
-            app:layout_constraintTop_toBottomOf="@+id/tv_alergi" />
+            app:layout_constraintTop_toBottomOf="@+id/eg_gender" />
 
         <Button
             android:id="@+id/btn_delete"
