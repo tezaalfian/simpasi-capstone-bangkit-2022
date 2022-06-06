@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1022265595816",
+    "project_id": "simpasi-1ddcb",
+    "storage_bucket": "simpasi-1ddcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022265595816:android:131717dd104712eef16f9d",
+        "android_client_info": {
+          "package_name": "com.tezaalfian.simpasi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022265595816-jemvimfht3v7rk903nkh0gj1n73e1su2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQH0isgV4hy5BUpJykP67NCS-HJueXLWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022265595816-jemvimfht3v7rk903nkh0gj1n73e1su2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
