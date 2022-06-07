@@ -57,4 +57,12 @@
     <string name="login">Login</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
+    <string name="roti_tawar">Roti_Tawar</string>
+    <string name="cumi_cumi">Cumi_Cumi</string>
+    <string name="tepung_beras">Tepung_Beras</string>
+    <string name="pisang">Pisang</string>
+    <string name="telur_bebek">Telur_Bebek</string>
+    <string name="kacang_tanah">Kacang_Tanah</string>
+    <string name="kerang">Kerang</string>
+    <string name="alpukat">Alpukat</string>
 </resources>

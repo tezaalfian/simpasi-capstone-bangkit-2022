@@ -22,9 +22,6 @@ data class ChildEntity(
     @ColumnInfo(name = "bb_bayi")
     val bbBayi: Int,
 
-    @ColumnInfo(name = "alergi")
-    val alergi: String? = null,
-
     @ColumnInfo(name = "user")
     val user: String,
 

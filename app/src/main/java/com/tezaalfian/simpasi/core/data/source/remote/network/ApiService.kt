@@ -1,8 +1,12 @@
 package com.tezaalfian.simpasi.core.data.source.remote.network
 
+import com.google.gson.JsonObject
+import com.tezaalfian.simpasi.core.data.model.Bahan
+import com.tezaalfian.simpasi.core.data.model.Feedback
 import com.tezaalfian.simpasi.core.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.http.*
+
 
 interface ApiService {
     @FormUrlEncoded
@@ -54,6 +58,14 @@ interface ApiService {
         @Field("jk_bayi") jk_bayi: String? = null,
         @Field("bb_bayi") bb_bayi: Int,
         @Field("alergi") alergi: String? = null
+    ): UpdateChildResponse
+
+    @Headers("Content-Type: application/json")
+    @PUT("bayi/{id}/bahan")
+    suspend fun bahan(
+        @Header("auth-token") token: String,
+        @Path("id") id: String,
+        @Body alergi: Feedback
     ): UpdateChildResponse
 
     @DELETE("bayi/{id}")

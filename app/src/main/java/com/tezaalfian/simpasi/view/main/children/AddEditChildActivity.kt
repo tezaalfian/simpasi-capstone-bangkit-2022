@@ -66,7 +66,6 @@ class AddEditChildActivity : AppCompatActivity() {
                     edtName.setText(child.nama)
                     edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir.toString()))
                     edtWeight.setText(child.bbBayi.toString())
-                    edtAlergi.setText(child.alergi)
                     btnDelete.setOnClickListener {
                         MaterialAlertDialogBuilder(this@AddEditChildActivity)
                             .setTitle(resources.getString(R.string.title_delete))
@@ -112,7 +111,6 @@ class AddEditChildActivity : AppCompatActivity() {
     private fun getData(state: String) {
         val name = binding.edtName.text.toString().trim()
         val weight = binding.edtWeight.text.toString().trim()
-        val alergi = binding.edtAlergi.text.toString().trim()
         val birthday = binding.edtBirthday.text.toString().trim()
         val gender = binding.egGender.checkedRadioButtonId
 
@@ -135,7 +133,6 @@ class AddEditChildActivity : AppCompatActivity() {
                     nama = name,
                     bbBayi = weight.toInt(),
                     tglLahir = birthday,
-                    alergi = alergi,
                     jkBayi = when(gender){
                         R.id.radio_button_1 -> "L"
                         R.id.radio_button_2 -> "P"
@@ -153,7 +150,7 @@ class AddEditChildActivity : AppCompatActivity() {
 
     private fun addChild(child: ChildResponse) {
         childrenViewModel.addChild(
-            MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.bbBayi, child.alergi
+            MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.bbBayi
         ).observe(this){result ->
             if (result != null) {
                 when(result) {
@@ -181,7 +178,7 @@ class AddEditChildActivity : AppCompatActivity() {
     private fun updateChild(data: ChildResponse) {
         childrenViewModel.editChild(MyDateFormat.TOKEN,
         ChildEntity(
-            child.id, data.nama, data.tglLahir, data.bbBayi, data.alergi, child.user, data.jkBayi
+            child.id, data.nama, data.tglLahir, data.bbBayi, child.user, data.jkBayi
         )).observe(this){ result ->
             if (result != null) {
                 when(result) {
@@ -211,7 +208,6 @@ class AddEditChildActivity : AppCompatActivity() {
             edtName.isEnabled = !isLoading
             edtBirthday.isEnabled = !isLoading
             edtWeight.isEnabled = !isLoading
-            edtAlergi.isEnabled = !isLoading
             egGender.isEnabled = !isLoading
             btnSave.isEnabled = !isLoading
             btnDelete.isEnabled = !isLoading
