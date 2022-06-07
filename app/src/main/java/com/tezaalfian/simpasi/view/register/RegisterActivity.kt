@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
+import com.tezaalfian.simpasi.core.ui.UserViewModelFactory
 import com.tezaalfian.simpasi.core.utils.animateVisibility
 import com.tezaalfian.simpasi.databinding.ActivityRegisterBinding
 
@@ -21,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setupAction()
-        signUp()
+        setupViewModel()
     }
 
     private fun setupAction(){
@@ -49,6 +51,11 @@ class RegisterActivity : AppCompatActivity() {
                 viewProgressbar.animateVisibility(false)
             }
         }
+    }
+
+    private fun setupViewModel() {
+        val factory: UserViewModelFactory = UserViewModelFactory.getInstance(this)
+        registerViewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
     }
 
     private fun signUp(){
@@ -88,7 +95,6 @@ class RegisterActivity : AppCompatActivity() {
                             }
                             is Resource.Success -> {
                                 showLoading(false)
-                                val user = result.data
                                     AlertDialog.Builder(this@RegisterActivity).apply {
                                         setTitle(getString(R.string.tittle_alert))
                                         setMessage(getString(R.string.message_success_alert))
