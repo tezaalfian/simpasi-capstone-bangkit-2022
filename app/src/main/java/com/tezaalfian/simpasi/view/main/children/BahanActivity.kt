@@ -18,6 +18,7 @@ class BahanActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBahanBinding
     private lateinit var childrenViewModel: ChildrenViewModel
     private lateinit var child: ChildEntity
+    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,8 @@ class BahanActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             getData()
         }
+
+        token = intent.getStringExtra(EXTRA_TOKEN).toString()
     }
 
     private fun getData() {
@@ -88,7 +91,7 @@ class BahanActivity : AppCompatActivity() {
                     getIndex(roti), getIndex(cumiCumi), getIndex(tepungBeras), getIndex(pisang),
                     getIndex(telurBebek), getIndex(kacangTanah), getIndex(kerang), getIndex(alpukat)
                 )
-                childrenViewModel.bahan(MyDateFormat.TOKEN, child.id, food).observe(this){result ->
+                childrenViewModel.bahan(token, child.id, food).observe(this){result ->
                     if (result != null) {
                         when(result) {
                             is Resource.Loading -> {
@@ -147,5 +150,6 @@ class BahanActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_CHILD = "extra_child"
+        const val EXTRA_TOKEN = "extra_token"
     }
 }

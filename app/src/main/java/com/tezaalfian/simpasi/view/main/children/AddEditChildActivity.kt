@@ -21,6 +21,7 @@ class AddEditChildActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditChildBinding
     private lateinit var childrenViewModel: ChildrenViewModel
     private lateinit var child: ChildEntity
+    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class AddEditChildActivity : AppCompatActivity() {
         this.title = "Children"
 
         val state = intent.getStringExtra(STATE).toString()
+        val token = intent.getStringExtra(EXTRA_TOKEN).toString()
 
         val factory = ChildViewModelFactory.getInstance(this)
         childrenViewModel =
@@ -74,7 +76,7 @@ class AddEditChildActivity : AppCompatActivity() {
 
                             }
                             .setPositiveButton(resources.getString(R.string.title_delete)) { dialog, which ->
-                                childrenViewModel.deleteChild(MyDateFormat.TOKEN, child.id).observe(this@AddEditChildActivity){result ->
+                                childrenViewModel.deleteChild(token, child.id).observe(this@AddEditChildActivity){result ->
                                     if (result != null) {
                                         when(result) {
                                             is Resource.Loading -> {
@@ -223,5 +225,6 @@ class AddEditChildActivity : AppCompatActivity() {
     companion object {
         const val STATE = "add"
         const val EXTRA_CHILD = "extra_child"
+        const val EXTRA_TOKEN = "extra_token"
     }
 }

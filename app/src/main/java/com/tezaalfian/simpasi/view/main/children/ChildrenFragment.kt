@@ -21,6 +21,7 @@ class ChildrenFragment : Fragment() {
 
     private var _binding: FragmentChildrenBinding? = null
     private lateinit var childrenViewModel: ChildrenViewModel
+    private var token = ""
 
     private val binding get() = _binding
 
@@ -40,19 +41,22 @@ class ChildrenFragment : Fragment() {
         childrenViewModel =
             ViewModelProvider(this, factory)[ChildrenViewModel::class.java]
 
-        loadData()
-
         binding?.btnAddChildren?.setOnClickListener {
             val intent = Intent(activity, AddEditChildActivity::class.java)
             intent.putExtra(AddEditChildActivity.STATE, "add")
             startActivity(intent)
         }
+
+        childrenViewModel.getToken().observe(requireActivity()){
+            token = it
+            loadData(it)
+        }
     }
 
-    private fun loadData() {
+    private fun loadData(token: String) {
         val childAdapter = ListChildAdapter()
         binding?.rvChildren?.adapter = childAdapter
-        childrenViewModel.getChildren(MyDateFormat.TOKEN).observe(viewLifecycleOwner){ child ->
+        childrenViewModel.getChildren(token).observe(viewLifecycleOwner){ child ->
             if (child != null) {
                 when(child) {
                     is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE

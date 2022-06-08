@@ -1,6 +1,7 @@
 package com.tezaalfian.simpasi.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
+import com.tezaalfian.simpasi.core.data.model.Feedback
 
 data class ChildResponse(
 
@@ -23,5 +24,8 @@ data class ChildResponse(
 	val jkBayi: String,
 
 	@field:SerializedName("tglTerdaftar")
-	val tglTerdaftar: String? = null
+	val tglTerdaftar: String? = null,
+
+	@field:SerializedName("alergi")
+	val alergi: Feedback? = null,
 )
