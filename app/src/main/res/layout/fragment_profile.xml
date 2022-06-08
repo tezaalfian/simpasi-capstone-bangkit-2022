@@ -95,6 +95,17 @@
         android:layout_height="wrap_content"
         android:text="@string/change_password"
         app:strokeColor="@color/blue_700"
+        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

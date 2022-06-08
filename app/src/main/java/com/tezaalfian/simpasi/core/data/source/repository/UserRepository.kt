@@ -80,6 +80,15 @@ class UserRepository private constructor(
         }
     }
 
+    suspend fun logout(){
+        dataStore.edit { preferences ->
+            preferences[TOKEN] = ""
+            preferences[NAME] = ""
+            preferences[USERNAME] = ""
+            preferences[EMAIL] = ""
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserRepository? = null
