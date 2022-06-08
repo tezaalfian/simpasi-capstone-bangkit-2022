@@ -19,5 +19,5 @@ class LoginViewModel (private val repo: UserRepository) : ViewModel() {
         return repo.getToken().asLiveData()
     }
 
-    fun login(usernameEmail: String, password: String) = repo.login(usernameEmail, password)
+    fun login(usernameEmail: String, password: String) = repo.login(usernameEmail, password).asLiveData()
 }

@@ -61,4 +61,12 @@
     <string name="next">Next</string>
     <string name="tittle_alert">Great!</string>
     <string name="message_success_alert">Account successfully created!</string>
+    <string name="roti_tawar">Roti Tawar</string>
+    <string name="cumi_cumi">Cumi Cumi</string>
+    <string name="tepung_beras">Tepung Beras</string>
+    <string name="pisang">Pisang</string>
+    <string name="telur_bebek">Telur Bebek</string>
+    <string name="kacang_tanah">Kacang Tanah</string>
+    <string name="kerang">Kerang</string>
+    <string name="alpukat">Alpukat</string>
 </resources>
