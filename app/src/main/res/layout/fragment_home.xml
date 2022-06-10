@@ -11,43 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tv_children"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/title_children"
-            app:layout_constraintTop_toTopOf="parent">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/tv_children"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/title_children"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:textColorHint="#616161"
-                app:simpleItems="@array/simple_items"
-                tools:ignore="LabelFor" />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <AutoCompleteTextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="none"-->
+<!--                android:textColorHint="#616161"-->
+<!--                app:simpleItems="@array/simple_items"-->
+<!--                tools:ignore="LabelFor" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-        <TextView
-            android:id="@+id/tv_akg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/akg_daily"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textColor="@color/blue_700"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_children" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_akg"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="@string/akg_daily"-->
+<!--            android:textAppearance="?attr/textAppearanceHeadline6"-->
+<!--            android:textColor="@color/blue_700"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_children" />-->
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/CircularDeterminateProgressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_akg"
-            tools:progress="60" />
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progress_bar"-->
+<!--            style="@style/CircularDeterminateProgressBar"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_akg"-->
+<!--            tools:progress="60" />-->
 
         <TextView
             android:id="@+id/tv_menu"
@@ -57,7 +57,7 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/blue_700"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_menu"
