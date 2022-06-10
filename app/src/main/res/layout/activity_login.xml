@@ -64,6 +64,7 @@
             android:layout_height="50dp"
             android:hint="@string/password_hint"
             android:background="@color/Blue_50"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@+id/tv_login_password"
             app:layout_constraintStart_toStartOf="@+id/tv_login_password"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_password" />
