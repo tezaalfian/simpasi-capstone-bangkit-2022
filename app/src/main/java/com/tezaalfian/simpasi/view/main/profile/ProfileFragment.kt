@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
         val profileViewModel =
             ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
-        profileViewModel.getUser().observe(requireActivity()){user ->
+        profileViewModel.getUser().observe(viewLifecycleOwner){user ->
             binding?.tvEmailEdit?.text = user.email
             binding?.tvNameEdit?.text = user.name
             binding?.tvUsernameEdit?.text = user.username
@@ -50,7 +50,7 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
-        profileViewModel.getToken().observe(requireActivity()){
+        profileViewModel.getToken().observe(viewLifecycleOwner){
             if (it.isNullOrEmpty()){
                 Intent(requireActivity(), LoginActivity::class.java).also { intent ->
                     startActivity(intent)

@@ -11,20 +11,20 @@ class FoodRepository private constructor(
     private val foodDao: FoodDao
 ) {
 
-    fun getFood(tanggal: String) : Flow<Resource<List<FoodEntity>>> = flow {
+    fun getFood(tanggal: String, token: String) : Flow<Resource<List<FoodEntity>>> = flow {
         emit(Resource.Loading)
         try {
-            val localData : Flow<Resource<List<FoodEntity>>> = foodDao.getReceipe(tanggal).map { Resource.Success(it) }
+            val localData : Flow<Resource<List<FoodEntity>>> = foodDao.getReceipe(tanggal, token).map { Resource.Success(it) }
             emitAll(localData)
         }catch (exception: Exception) {
             emit(Resource.Error(exception.message.toString()))
         }
     }.flowOn(Dispatchers.IO)
 
-    fun getLasFood() : Flow<Resource<List<Int>>> = flow {
+    fun getLasFood(token: String) : Flow<Resource<List<Int>>> = flow {
         emit(Resource.Loading)
         try {
-            val localData : Flow<Resource<List<Int>>> = foodDao.getLastFood().map { Resource.Success(it) }
+            val localData : Flow<Resource<List<Int>>> = foodDao.getLastFood(token).map { Resource.Success(it) }
             emitAll(localData)
         }catch (exception: Exception) {
             emit(Resource.Error(exception.message.toString()))

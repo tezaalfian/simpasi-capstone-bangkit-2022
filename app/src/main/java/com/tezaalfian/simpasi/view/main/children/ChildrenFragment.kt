@@ -48,7 +48,7 @@ class ChildrenFragment : Fragment() {
             startActivity(intent)
         }
 
-        childrenViewModel.getToken().observe(requireActivity()){
+        childrenViewModel.getToken().observe(viewLifecycleOwner){
             token = it
             loadData(it)
         }

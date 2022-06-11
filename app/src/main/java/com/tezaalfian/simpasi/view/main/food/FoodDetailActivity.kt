@@ -29,6 +29,14 @@ class FoodDetailActivity : AppCompatActivity() {
         val factory = FoodViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[FoodViewModel::class.java]
 
+        var token = ""
+
+        viewModel.getToken().observe(this){
+            if (!it.isNullOrEmpty()){
+                token = it
+            }
+        }
+
         binding.apply {
             tvFoodName.text = food.resep
             tvDescription.text = food.bahan
@@ -37,7 +45,7 @@ class FoodDetailActivity : AppCompatActivity() {
                 val currentDate = sdf.format(Date())
                 viewModel.insertFood(
                     FoodEntity(
-                        foodId = food.id, resep = food.resep, bahan = food.resep, tanggal = currentDate
+                        foodId = food.id, resep = food.resep, bahan = food.resep, tanggal = currentDate, token = token
                     )
                 )
                 Toast.makeText(this@FoodDetailActivity, resources.getString(R.string.success), Toast.LENGTH_SHORT).show()

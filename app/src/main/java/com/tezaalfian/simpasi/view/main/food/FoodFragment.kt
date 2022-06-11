@@ -27,6 +27,7 @@ class FoodFragment : Fragment() {
 
     private var _binding: FragmentFoodBinding? = null
     private lateinit var foodViewModel: FoodViewModel
+    private lateinit var token: String
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -67,16 +68,21 @@ class FoodFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int,count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                loadData(s.toString())
+                loadData(s.toString(), token)
             }
         })
-        loadData(currentDate)
+        foodViewModel.getToken().observe(viewLifecycleOwner){
+            if (!it.isNullOrEmpty()){
+                token = it
+                loadData(currentDate, token)
+            }
+        }
     }
 
-    private fun loadData(date: String) {
+    private fun loadData(date: String, token: String) {
         val foodAdapter = ListFoodDailyAdapter()
         binding?.rvMenu?.adapter = foodAdapter
-        foodViewModel.getFood(date).observe(requireActivity()){result ->
+        foodViewModel.getFood(date, token).observe(viewLifecycleOwner){result ->
             if (result != null) {
                 when(result) {
                     is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE

@@ -48,29 +48,33 @@ class HomeFragment : Fragment() {
 
         val ids = mutableListOf<Float>()
         loadModel(ids)
-        viewModel.getLastFood().observe(requireActivity()){result ->
-            if (result != null) {
-                when(result) {
-                    is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
-                    is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        for (i in result.data.indices){
-                            ids.add(i, result.data[i].toFloat())
-                        }
+        viewModel.getToken().observe(viewLifecycleOwner){
+            if (!it.isNullOrEmpty()){
+                viewModel.getLastFood(it).observe(viewLifecycleOwner){result ->
+                    if (result != null) {
+                        when(result) {
+                            is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
+                            is Resource.Success -> {
+                                binding?.progressBar?.visibility = View.GONE
+                                for (i in result.data.indices){
+                                    ids.add(i, result.data[i].toFloat())
+                                }
 //                        if (ids.size == 1){
 //                            callModel(ids[0], ids[0])
 //                        }
-                        if (ids.size == 2){
-                            callModel(ids[0], ids[1])
+                                if (ids.size == 2){
+                                    callModel(ids[0], ids[1])
+                                }
+                            }
+                            is Resource.Error -> {
+                                binding?.progressBar?.visibility = View.GONE
+                                Toast.makeText(
+                                    requireActivity(),
+                                    result.error,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
-                    }
-                    is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(
-                            requireActivity(),
-                            result.error,
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
             }

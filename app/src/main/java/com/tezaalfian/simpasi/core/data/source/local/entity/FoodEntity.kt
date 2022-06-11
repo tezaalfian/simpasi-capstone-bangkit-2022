@@ -23,5 +23,8 @@ data class FoodEntity(
     val bahan: String,
 
     @ColumnInfo(name = "tanggal")
-    var tanggal: String? = null
+    var tanggal: String? = null,
+
+    @ColumnInfo(name = "token")
+    var token: String? = null
 )
