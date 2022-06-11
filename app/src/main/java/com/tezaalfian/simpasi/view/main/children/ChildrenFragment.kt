@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
+import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.ui.ListChildAdapter
 import com.tezaalfian.simpasi.databinding.FragmentChildrenBinding
@@ -41,6 +44,7 @@ class ChildrenFragment : Fragment() {
         binding?.btnAddChildren?.setOnClickListener {
             val intent = Intent(activity, AddEditChildActivity::class.java)
             intent.putExtra(AddEditChildActivity.STATE, "add")
+            intent.putExtra(AddEditChildActivity.EXTRA_TOKEN, token)
             startActivity(intent)
         }
 
@@ -72,6 +76,27 @@ class ChildrenFragment : Fragment() {
                 }
             }
         }
+        childAdapter.setOnItemClickCallback(object : ListChildAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: ChildEntity) {
+                MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle(resources.getString(R.string.title_children))
+                    .setMessage("Pilih Aksi")
+                    .setNegativeButton("Feedback Bahan") { _, _ ->
+                        val intent = Intent(requireActivity(), BahanActivity::class.java)
+                        intent.putExtra(BahanActivity.EXTRA_CHILD, data)
+                        intent.putExtra(BahanActivity.EXTRA_TOKEN, token)
+                        startActivity(intent)
+                    }
+                    .setPositiveButton("Edit") { _, _ ->
+                        val intent = Intent(requireActivity(), AddEditChildActivity::class.java)
+                        intent.putExtra(AddEditChildActivity.STATE, "edit")
+                        intent.putExtra(AddEditChildActivity.EXTRA_TOKEN, token)
+                        intent.putExtra(AddEditChildActivity.EXTRA_CHILD, data)
+                        startActivity(intent)
+                    }
+                    .show()
+            }
+        })
     }
 
     override fun onDestroyView() {

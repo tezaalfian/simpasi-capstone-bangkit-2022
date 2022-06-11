@@ -21,6 +21,7 @@ class AddEditChildActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditChildBinding
     private lateinit var childrenViewModel: ChildrenViewModel
     private lateinit var child: ChildEntity
+    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class AddEditChildActivity : AppCompatActivity() {
         this.title = "Children"
 
         val state = intent.getStringExtra(STATE).toString()
-        val token = intent.getStringExtra(EXTRA_TOKEN).toString()
+        token = intent.getStringExtra(EXTRA_TOKEN).toString()
 
         val factory = ChildViewModelFactory.getInstance(this)
         childrenViewModel =
@@ -151,7 +152,7 @@ class AddEditChildActivity : AppCompatActivity() {
 
     private fun addChild(child: ChildResponse) {
         childrenViewModel.addChild(
-            MyDateFormat.TOKEN, child.nama, child.tglLahir, child.jkBayi, child.bbBayi
+            token, child.nama, child.tglLahir, child.jkBayi, child.bbBayi
         ).observe(this){result ->
             if (result != null) {
                 when(result) {
@@ -177,7 +178,7 @@ class AddEditChildActivity : AppCompatActivity() {
     }
 
     private fun updateChild(data: ChildResponse) {
-        childrenViewModel.editChild(MyDateFormat.TOKEN,
+        childrenViewModel.editChild(token,
         ChildEntity(
             child.id, data.nama, data.tglLahir, data.bbBayi, child.user, data.jkBayi
         )).observe(this){ result ->

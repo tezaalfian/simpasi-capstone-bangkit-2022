@@ -2,20 +2,22 @@ package com.tezaalfian.simpasi.core.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.databinding.ItemChildrenBinding
-import com.tezaalfian.simpasi.view.main.children.AddEditChildActivity
-import com.tezaalfian.simpasi.view.main.children.BahanActivity
 import java.util.ArrayList
 
 class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>() {
+
+    private lateinit var onItemClickCallback: ListChildAdapter.OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     private var listData = ArrayList<ChildEntity>()
 
@@ -38,21 +40,7 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
                 }
                 tvBb.text = context.resources.getString(R.string.berat, child.bbBayi)
                 itemView.setOnClickListener {
-                    MaterialAlertDialogBuilder(context)
-                        .setTitle(context.resources.getString(R.string.title_children))
-                        .setMessage("Pilih Aksi")
-                        .setNegativeButton("Feedback Bahan") { _, _ ->
-                            val intent = Intent(context, BahanActivity::class.java)
-                            intent.putExtra(BahanActivity.EXTRA_CHILD, child)
-                            context.startActivity(intent)
-                        }
-                        .setPositiveButton("Edit") { _, _ ->
-                            val intent = Intent(context, AddEditChildActivity::class.java)
-                            intent.putExtra(AddEditChildActivity.STATE, "edit")
-                            intent.putExtra(AddEditChildActivity.EXTRA_CHILD, child)
-                            context.startActivity(intent)
-                        }
-                        .show()
+                    onItemClickCallback.onItemClicked(child)
                 }
             }
             Glide.with(itemView.context)
@@ -75,4 +63,8 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
     }
 
     override fun getItemCount() = listData.size
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: ChildEntity)
+    }
 }

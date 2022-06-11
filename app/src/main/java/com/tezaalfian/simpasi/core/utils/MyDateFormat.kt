@@ -15,6 +15,4 @@ object MyDateFormat {
         val date = sdf.parse(timestamp) as Date
         return DateFormat.getDateInstance(DateFormat.YEAR_FIELD).format(date)
     }
-
-    const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkwOGYxMzQwOWYxNGY1NzZjZTgyNGQiLCJpYXQiOjE2NTM3MzA3ODV9.lMzYrfJWqmzk3xKlS2fde_wWeS16jvglmvaeu2qhyJ0"
 }
