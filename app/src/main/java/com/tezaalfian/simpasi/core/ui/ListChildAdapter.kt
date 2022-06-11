@@ -1,5 +1,6 @@
 package com.tezaalfian.simpasi.core.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
 
     private var listData = ArrayList<ChildEntity>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newListData: List<ChildEntity>?) {
         if (newListData == null) return
         listData.clear()
@@ -34,17 +36,17 @@ class ListChildAdapter : RecyclerView.Adapter<ListChildAdapter.ListViewHolder>()
                     "P" -> "Perempuan /"
                     else -> ""
                 }
-                tvBb.text = "${child.bbBayi} kg"
+                tvBb.text = context.resources.getString(R.string.berat, child.bbBayi)
                 itemView.setOnClickListener {
                     MaterialAlertDialogBuilder(context)
                         .setTitle(context.resources.getString(R.string.title_children))
                         .setMessage("Pilih Aksi")
-                        .setNegativeButton("Feedback Bahan") { dialog, which ->
+                        .setNegativeButton("Feedback Bahan") { _, _ ->
                             val intent = Intent(context, BahanActivity::class.java)
                             intent.putExtra(BahanActivity.EXTRA_CHILD, child)
                             context.startActivity(intent)
                         }
-                        .setPositiveButton("Edit") { dialog, which ->
+                        .setPositiveButton("Edit") { _, _ ->
                             val intent = Intent(context, AddEditChildActivity::class.java)
                             intent.putExtra(AddEditChildActivity.STATE, "edit")
                             intent.putExtra(AddEditChildActivity.EXTRA_CHILD, child)

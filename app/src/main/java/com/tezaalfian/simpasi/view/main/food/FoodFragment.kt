@@ -4,14 +4,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -20,7 +17,6 @@ import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.source.local.entity.FoodEntity
 import com.tezaalfian.simpasi.core.ui.FoodViewModelFactory
-import com.tezaalfian.simpasi.core.ui.ListChildAdapter
 import com.tezaalfian.simpasi.core.ui.ListFoodDailyAdapter
 import com.tezaalfian.simpasi.core.utils.MyDateFormat
 import com.tezaalfian.simpasi.databinding.FragmentFoodBinding
@@ -105,8 +101,8 @@ class FoodFragment : Fragment() {
                 MaterialAlertDialogBuilder(requireActivity())
                     .setTitle(resources.getString(R.string.title_delete))
                     .setMessage(resources.getString(R.string.sure))
-                    .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> }
-                    .setPositiveButton(resources.getString(R.string.title_delete)) { dialog, which ->
+                    .setNegativeButton(resources.getString(R.string.cancel)) { _, _ -> }
+                    .setPositiveButton(resources.getString(R.string.title_delete)) { _, _ ->
                         foodViewModel.deleteFood(data)
                     }
                     .show()

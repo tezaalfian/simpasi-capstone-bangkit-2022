@@ -3,17 +3,10 @@ package com.tezaalfian.simpasi.core.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tezaalfian.simpasi.core.data.source.repository.ChildRepository
 import com.tezaalfian.simpasi.core.data.source.repository.FoodRepository
-import com.tezaalfian.simpasi.core.data.source.repository.UserRepository
 import com.tezaalfian.simpasi.core.di.Injection
-import com.tezaalfian.simpasi.view.login.LoginViewModel
-import com.tezaalfian.simpasi.view.main.children.ChildrenViewModel
 import com.tezaalfian.simpasi.view.main.food.FoodViewModel
 import com.tezaalfian.simpasi.view.main.home.HomeViewModel
-import com.tezaalfian.simpasi.view.main.profile.ProfileViewModel
-import com.tezaalfian.simpasi.view.register.RegisterViewModel
-import com.tezaalfian.simpasi.view.splash.SplashViewModel
 
 class FoodViewModelFactory private constructor(private val foodRepository: FoodRepository) :
     ViewModelProvider.NewInstanceFactory() {

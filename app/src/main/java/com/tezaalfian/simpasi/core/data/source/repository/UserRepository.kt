@@ -1,6 +1,5 @@
 package com.tezaalfian.simpasi.core.data.source.repository
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.tezaalfian.simpasi.core.data.source.remote.network.ApiService

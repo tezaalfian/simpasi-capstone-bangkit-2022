@@ -96,7 +96,6 @@ class ChildRepository private constructor(
     ): Flow<Resource<UpdateChildResponse>> = flow {
         emit(Resource.Loading)
         try {
-            Log.d("CHILD", bahan.toString())
             val client = apiService.bahan(token, id, Feedback(bahan))
             emit(Resource.Success(client))
         }catch (throwable: HttpException){

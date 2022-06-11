@@ -1,9 +1,7 @@
 package com.tezaalfian.simpasi.view.main.food
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.tezaalfian.simpasi.core.data.source.local.entity.FoodEntity
-import com.tezaalfian.simpasi.core.data.source.repository.ChildRepository
 import com.tezaalfian.simpasi.core.data.source.repository.FoodRepository
 import kotlinx.coroutines.launch
 

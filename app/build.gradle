@@ -34,7 +34,6 @@ android {
     }
     buildFeatures {
         viewBinding true
-        mlModelBinding true
     }
 }
 
@@ -60,11 +59,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.13.1'
 
-    // Declare the dependency for the Firebase ML model downloader library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-ml-modeldownloader-ktx:24.0.3'
-
-    // Also declare the dependency for the TensorFlow Lite library and specify its version
     implementation 'org.tensorflow:tensorflow-lite:2.8.0'
 
     testImplementation 'junit:junit:4.13.2'

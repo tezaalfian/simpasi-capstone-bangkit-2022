@@ -1,13 +1,11 @@
 package com.tezaalfian.simpasi.view.main.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.ml.modeldownloader.CustomModel
@@ -32,7 +30,6 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
     private lateinit var interpreter: Interpreter
-    // onDestroyView.
     private val binding get() = _binding
 
     override fun onCreateView(
@@ -60,9 +57,9 @@ class HomeFragment : Fragment() {
                         for (i in result.data.indices){
                             ids.add(i, result.data[i].toFloat())
                         }
-                        if (ids.size == 1){
-                            callModel(ids[0], ids[0])
-                        }
+//                        if (ids.size == 1){
+//                            callModel(ids[0], ids[0])
+//                        }
                         if (ids.size == 2){
                             callModel(ids[0], ids[1])
                         }
@@ -120,7 +117,7 @@ class HomeFragment : Fragment() {
             }
             loadResep(foodId)
         } catch (e: IOException) {
-            Log.e(TAG, e.message.toString())
+            Toast.makeText(requireActivity(), e.message.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -141,12 +138,8 @@ class HomeFragment : Fragment() {
             }
             foodAdapter.setData(foods)
         } catch (e: IOException) {
-            Log.d(TAG, e.message.toString())
+            Toast.makeText(requireActivity(), e.message.toString(), Toast.LENGTH_SHORT).show()
         }
-    }
-
-    companion object {
-        private const val TAG = "HomeFragment"
     }
 
     override fun onDestroyView() {

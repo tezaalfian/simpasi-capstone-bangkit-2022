@@ -1,7 +1,6 @@
 package com.tezaalfian.simpasi.view.main.food
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast

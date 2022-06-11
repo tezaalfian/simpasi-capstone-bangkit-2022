@@ -1,10 +1,7 @@
 package com.tezaalfian.simpasi.core.data.source.remote.network
 
-import com.google.gson.JsonObject
-import com.tezaalfian.simpasi.core.data.model.Bahan
 import com.tezaalfian.simpasi.core.data.model.Feedback
 import com.tezaalfian.simpasi.core.data.source.remote.response.*
-import retrofit2.Call
 import retrofit2.http.*
 
 

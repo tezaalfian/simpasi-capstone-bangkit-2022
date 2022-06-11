@@ -10,7 +10,6 @@ import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.model.Bahan
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
 import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
-import com.tezaalfian.simpasi.core.utils.MyDateFormat
 import com.tezaalfian.simpasi.databinding.ActivityBahanBinding
 
 class BahanActivity : AppCompatActivity() {

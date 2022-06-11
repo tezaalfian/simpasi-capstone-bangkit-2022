@@ -1,16 +1,14 @@
 package com.tezaalfian.simpasi.core.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tezaalfian.simpasi.R
 import com.tezaalfian.simpasi.core.data.source.local.entity.FoodEntity
-import com.tezaalfian.simpasi.databinding.ItemFoodBinding
 import com.tezaalfian.simpasi.databinding.ItemFoodEditableBinding
-import com.tezaalfian.simpasi.view.main.food.FoodDetailActivity
 import java.util.ArrayList
 
 class ListFoodDailyAdapter : RecyclerView.Adapter<ListFoodDailyAdapter.ListViewHolder>() {
@@ -23,6 +21,7 @@ class ListFoodDailyAdapter : RecyclerView.Adapter<ListFoodDailyAdapter.ListViewH
         this.onItemClickCallback = onItemClickCallback
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newListData: List<FoodEntity>?) {
         if (newListData == null) return
         listData.clear()

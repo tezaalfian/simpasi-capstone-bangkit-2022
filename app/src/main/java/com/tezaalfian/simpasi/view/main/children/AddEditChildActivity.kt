@@ -21,7 +21,6 @@ class AddEditChildActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditChildBinding
     private lateinit var childrenViewModel: ChildrenViewModel
     private lateinit var child: ChildEntity
-    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,16 +65,16 @@ class AddEditChildActivity : AppCompatActivity() {
                 binding.apply {
                     btnSave.text = resources.getString(R.string.update)
                     edtName.setText(child.nama)
-                    edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir.toString()))
+                    edtBirthday.setText(MyDateFormat.myLocalDateFormat(child.tglLahir))
                     edtWeight.setText(child.bbBayi.toString())
                     btnDelete.setOnClickListener {
                         MaterialAlertDialogBuilder(this@AddEditChildActivity)
                             .setTitle(resources.getString(R.string.title_delete))
                             .setMessage(resources.getString(R.string.sure))
-                            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                            .setNegativeButton(resources.getString(R.string.cancel)) { _, _ ->
 
                             }
-                            .setPositiveButton(resources.getString(R.string.title_delete)) { dialog, which ->
+                            .setPositiveButton(resources.getString(R.string.title_delete)) { _, _ ->
                                 childrenViewModel.deleteChild(token, child.id).observe(this@AddEditChildActivity){result ->
                                     if (result != null) {
                                         when(result) {

@@ -6,12 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tezaalfian.simpasi.R
-import com.tezaalfian.simpasi.core.data.Resource
-import com.tezaalfian.simpasi.core.ui.ChildViewModelFactory
 import com.tezaalfian.simpasi.core.ui.UserViewModelFactory
 import com.tezaalfian.simpasi.databinding.FragmentProfileBinding
 import com.tezaalfian.simpasi.view.login.LoginActivity
@@ -46,10 +43,8 @@ class ProfileFragment : Fragment() {
         binding?.btnLogout?.setOnClickListener {
             MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(resources.getString(R.string.logout))
-                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
-
-                }
-                .setPositiveButton(resources.getString(R.string.logout)) { dialog, which ->
+                .setNegativeButton(resources.getString(R.string.cancel)) { _, _ -> }
+                .setPositiveButton(resources.getString(R.string.logout)) { _, _ ->
                     profileViewModel.logout()
                 }
                 .show()

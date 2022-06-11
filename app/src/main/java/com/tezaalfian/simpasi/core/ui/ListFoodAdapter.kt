@@ -1,5 +1,6 @@
 package com.tezaalfian.simpasi.core.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ class ListFoodAdapter : RecyclerView.Adapter<ListFoodAdapter.ListViewHolder>() {
 
     private var listData = ArrayList<Food>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newListData: List<Food>?) {
         if (newListData == null) return
         listData.clear()
