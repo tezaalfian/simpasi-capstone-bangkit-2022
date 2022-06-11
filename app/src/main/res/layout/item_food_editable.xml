@@ -26,12 +26,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintBottom_toTopOf="@+id/tv_description"
-            app:layout_constraintEnd_toStartOf="@+id/btn_delete"
             app:layout_constraintStart_toEndOf="@+id/img_food_menu"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/food_name" />
 
         <TextView
@@ -44,19 +43,8 @@
             android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_food_name"
-            app:layout_constraintTop_toBottomOf="@+id/btn_delete"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
             tools:text="@string/food_name" />
-
-        <Button
-            android:id="@+id/btn_delete"
-            style="@style/Widget.App.Button.IconOnly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/title_delete"
-            app:icon="@drawable/ic_baseline_delete_24"
-            app:iconTint="@color/red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

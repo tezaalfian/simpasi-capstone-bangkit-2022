@@ -33,7 +33,7 @@
             android:name=".view.main.food.list.FoodListActivity"
             android:exported="false" />
         <activity
-            android:name=".view.main.food.detail.FoodDetailActivity"
+            android:name=".view.main.food.FoodDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.main.MainActivity"

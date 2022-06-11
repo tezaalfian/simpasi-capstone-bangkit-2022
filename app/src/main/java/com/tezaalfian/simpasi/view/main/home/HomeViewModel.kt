@@ -1,13 +1,10 @@
 package com.tezaalfian.simpasi.view.main.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.tezaalfian.simpasi.core.data.source.repository.FoodRepository
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val foodRepository: FoodRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun getLastFood() = foodRepository.getLasFood().asLiveData()
 }

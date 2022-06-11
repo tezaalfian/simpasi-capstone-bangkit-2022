@@ -5,14 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.tezaalfian.simpasi.core.data.source.local.entity.ChildEntity
+import com.tezaalfian.simpasi.core.data.source.local.entity.FoodEntity
 
 @Database(
-    entities = [ChildEntity::class],
+    entities = [ChildEntity::class, FoodEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class SimpasiDatabase : RoomDatabase() {
     abstract fun childDao(): ChildDao
+    abstract fun foodDao(): FoodDao
 
     companion object {
         @Volatile

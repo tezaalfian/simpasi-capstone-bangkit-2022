@@ -1,5 +1,11 @@
 package com.tezaalfian.simpasi.core.data.model
 
-data class Food (
-    val userId: String = "32"
-)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Food(
+    var id: String,
+    val resep: String,
+    val bahan: String
+) : Parcelable

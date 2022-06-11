@@ -1,13 +1,25 @@
 package com.tezaalfian.simpasi.view.main.food
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
+import com.tezaalfian.simpasi.core.data.source.local.entity.FoodEntity
+import com.tezaalfian.simpasi.core.data.source.repository.ChildRepository
+import com.tezaalfian.simpasi.core.data.source.repository.FoodRepository
+import kotlinx.coroutines.launch
 
-class FoodViewModel : ViewModel() {
+class FoodViewModel(private val foodRepository: FoodRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    fun getFood(tanggal: String) = foodRepository.getFood(tanggal).asLiveData()
+
+    fun insertFood(food: FoodEntity) {
+        viewModelScope.launch {
+            foodRepository.insertFood(food)
+        }
     }
-    val text: LiveData<String> = _text
+
+    fun deleteFood(food: FoodEntity){
+        viewModelScope.launch {
+            foodRepository.deleteFood(food)
+        }
+    }
 }

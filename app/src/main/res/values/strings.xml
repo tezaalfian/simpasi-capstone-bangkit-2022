@@ -70,4 +70,6 @@
     <string name="kerang">Kerang</string>
     <string name="alpukat">Alpukat</string>
     <string name="logout">Logout</string>
+    <string name="emailusername">Email / Username</string>
+    <string name="today">Today</string>
 </resources>

@@ -8,8 +8,14 @@ import kotlinx.coroutines.flow.Flow
 interface FoodDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(tourism: List<FoodEntity>)
+    suspend fun insert(food: FoodEntity)
 
     @Query("SELECT * FROM food WHERE tanggal = :tanggal")
     fun getReceipe(tanggal: String): Flow<List<FoodEntity>>
+
+    @Delete
+    suspend fun delete(food: FoodEntity)
+
+    @Query("SELECT id FROM food ORDER BY id DESC LIMIT 2")
+    fun getLastFood(): Flow<List<Int>>
 }

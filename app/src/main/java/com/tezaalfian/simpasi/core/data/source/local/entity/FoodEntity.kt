@@ -1,15 +1,20 @@
 package com.tezaalfian.simpasi.core.data.source.local.entity
 
-import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import kotlinx.parcelize.Parcelize
+import androidx.room.PrimaryKey
 
-@Parcelize
 @Entity(tableName = "food")
 data class FoodEntity(
+
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: String,
+    var id: Int = 0,
+
+    @ColumnInfo(name = "food_id")
+    var foodId: String,
 
     @ColumnInfo(name = "resep")
     val resep: String,
@@ -18,5 +23,5 @@ data class FoodEntity(
     val bahan: String,
 
     @ColumnInfo(name = "tanggal")
-    val tanggal: String? = null
-) : Parcelable
+    var tanggal: String? = null
+)
