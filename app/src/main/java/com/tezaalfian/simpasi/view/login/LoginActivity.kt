@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                                 showLoading(false)
                                 val user = result.data
                                     val token = user.token ?: ""
-                                    loginViewModel.setToken(token, user.name, user.email, user.username)
+                                    loginViewModel.setToken(token, user.id, user.name, user.email, user.username)
                             }
                             is Resource.Error -> {
                                 showLoading(false)
