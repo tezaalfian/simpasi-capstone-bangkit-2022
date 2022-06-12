@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="44dp"
             android:layout_marginEnd="16dp"
             android:shadowColor="@color/black"
             android:text="@string/edit_profile"
@@ -45,6 +45,7 @@
             android:layout_height="50dp"
             android:hint="@string/name_hint"
             android:background="@color/Blue_50"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_edit_name"
             app:layout_constraintStart_toStartOf="@+id/tv_edit_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_edit_name"/>
@@ -65,29 +66,31 @@
             android:layout_height="50dp"
             android:hint="@string/email_hint"
             android:background="@color/Blue_50"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_edit_email"
             app:layout_constraintStart_toStartOf="@+id/tv_edit_email"
             app:layout_constraintTop_toBottomOf="@+id/tv_edit_email" />
 
         <TextView
-            android:id="@+id/tv_edit_password"
+            android:id="@+id/tv_edit_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/password"
+            android:text="@string/username"
             app:layout_constraintEnd_toEndOf="@+id/edt_edit_email"
             app:layout_constraintStart_toStartOf="@+id/edt_edit_email"
             app:layout_constraintTop_toBottomOf="@+id/edt_edit_email" />
 
-        <com.tezaalfian.simpasi.core.ui.customview.PasswordEditText
-            android:id="@+id/edt_edit_password"
+        <com.tezaalfian.simpasi.core.ui.customview.EditText
+            android:id="@+id/edt_edit_username"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:hint="@string/password_hint"
+            android:hint="@string/username_hint"
             android:background="@color/Blue_50"
-            app:layout_constraintEnd_toEndOf="@+id/tv_edit_password"
-            app:layout_constraintStart_toStartOf="@+id/tv_edit_password"
-            app:layout_constraintTop_toBottomOf="@+id/tv_edit_password" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_edit_username"
+            app:layout_constraintStart_toStartOf="@+id/tv_edit_username"
+            app:layout_constraintTop_toBottomOf="@+id/tv_edit_username" />
 
         <Button
             android:id="@+id/btn_save_profile"
@@ -97,9 +100,9 @@
             android:text="@string/save"
             android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintEnd_toEndOf="@+id/edt_edit_password"
-            app:layout_constraintStart_toStartOf="@+id/edt_edit_password"
-            app:layout_constraintTop_toBottomOf="@+id/edt_edit_password" />
+            app:layout_constraintEnd_toEndOf="@+id/edt_edit_username"
+            app:layout_constraintStart_toStartOf="@+id/edt_edit_username"
+            app:layout_constraintTop_toBottomOf="@+id/edt_edit_username" />
 
         <RelativeLayout
             android:id="@+id/view_progressbar"
@@ -117,5 +120,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
         </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
