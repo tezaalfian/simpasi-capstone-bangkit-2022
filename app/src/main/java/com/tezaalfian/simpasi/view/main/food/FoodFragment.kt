@@ -27,7 +27,7 @@ class FoodFragment : Fragment() {
 
     private var _binding: FragmentFoodBinding? = null
     private lateinit var foodViewModel: FoodViewModel
-    private lateinit var token: String
+    private var token: String = ""
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -68,7 +68,9 @@ class FoodFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int,count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                loadData(s.toString(), token)
+                if (token.isNotEmpty()) {
+                    loadData(s.toString(), token)
+                }
             }
         })
         foodViewModel.getToken().observe(viewLifecycleOwner){
