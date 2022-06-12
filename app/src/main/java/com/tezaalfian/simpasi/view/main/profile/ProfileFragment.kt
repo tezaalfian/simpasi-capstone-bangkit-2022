@@ -50,6 +50,15 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
+        binding?.btnEditProfile?.setOnClickListener {
+            val intent = Intent(activity, EditProfileActivity::class.java)
+                activity?.startActivity(intent)
+        }
+        binding?.btnChangePassword?.setOnClickListener {
+            val intent = Intent(activity, ChangePasswordActivity::class.java)
+                activity?.startActivity(intent)
+        }
+
         profileViewModel.getToken().observe(viewLifecycleOwner){
             if (it.isNullOrEmpty()){
                 Intent(requireActivity(), LoginActivity::class.java).also { intent ->
