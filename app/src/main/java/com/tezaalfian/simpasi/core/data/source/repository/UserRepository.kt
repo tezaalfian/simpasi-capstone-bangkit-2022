@@ -1,5 +1,6 @@
 package com.tezaalfian.simpasi.core.data.source.repository
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.tezaalfian.simpasi.core.data.source.remote.network.ApiService
@@ -10,9 +11,7 @@ import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.tezaalfian.simpasi.core.data.Resource
 import com.tezaalfian.simpasi.core.data.model.User
-import com.tezaalfian.simpasi.core.data.source.remote.response.ErrorResponse
-import com.tezaalfian.simpasi.core.data.source.remote.response.LoginResponse
-import com.tezaalfian.simpasi.core.data.source.remote.response.RegisterResponse
+import com.tezaalfian.simpasi.core.data.source.remote.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -54,6 +53,36 @@ class UserRepository private constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    fun editProfile(token: String, id: String, nama: String, email: String, username: String) : Flow<Resource<UpdateChildResponse>> = flow {
+        emit(Resource.Loading)
+        try {
+            val result = apiService.editProfile(token, id, nama, email, username)
+            emit(Resource.Success(result))
+        }catch (throwable: HttpException){
+            try {
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun changePassword(token: String, id: String, password: String, confirm_password: String) : Flow<Resource<ChangePasswordResponse>> = flow {
+        emit(Resource.Loading)
+        try {
+            val result = apiService.changePassword(token, id, password, confirm_password)
+            emit(Resource.Success(result))
+        }catch (throwable: HttpException){
+            try {
+                val errorResponse = Gson().fromJson(throwable.response()?.errorBody()?.source()?.readUtf8().toString(), ErrorResponse::class.java)
+                emit(Resource.Error(errorResponse.message.toString()))
+            } catch (exception: Exception) {
+                emit(Resource.Error(exception.message.toString()))
+            }
+        }
+    }.flowOn(Dispatchers.IO)
+
     fun getToken() : Flow<String> {
         return dataStore.data.map { preferences ->
             preferences[TOKEN] ?: ""
@@ -63,6 +92,8 @@ class UserRepository private constructor(
     fun getUser() : Flow<User> {
         return dataStore.data.map { pref ->
             User(
+                pref[TOKEN] ?: "",
+                pref[ID] ?: "",
                 pref[NAME] ?: "",
                 pref[USERNAME] ?: "",
                 pref[EMAIL] ?: ""
@@ -70,9 +101,10 @@ class UserRepository private constructor(
         }
     }
 
-    suspend fun setUserData(token: String, name: String, email: String, username: String){
+    suspend fun setUserData(token: String, id: String, name: String, email: String, username: String){
         dataStore.edit { preferences ->
             preferences[TOKEN] = token
+            preferences[ID] = id
             preferences[NAME] = name
             preferences[USERNAME] = username
             preferences[EMAIL] = email
@@ -82,6 +114,7 @@ class UserRepository private constructor(
     suspend fun logout(){
         dataStore.edit { preferences ->
             preferences[TOKEN] = ""
+            preferences[ID] = ""
             preferences[NAME] = ""
             preferences[USERNAME] = ""
             preferences[EMAIL] = ""
@@ -92,6 +125,7 @@ class UserRepository private constructor(
         @Volatile
         private var INSTANCE: UserRepository? = null
 
+        private val ID = stringPreferencesKey("id")
         private val TOKEN = stringPreferencesKey("token")
         private val NAME = stringPreferencesKey("name")
         private val USERNAME = stringPreferencesKey("username")

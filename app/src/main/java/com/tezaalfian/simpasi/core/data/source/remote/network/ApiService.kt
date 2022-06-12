@@ -70,4 +70,23 @@ interface ApiService {
         @Header("auth-token") token: String,
         @Path("id") id: String
     ): DeleteChildResponse
+
+    @FormUrlEncoded
+    @PUT("user/{id}")
+    suspend fun editProfile(
+        @Header("auth-token") token: String,
+        @Path("id") id: String,
+        @Field("nama") nama: String,
+        @Field("email") email: String,
+        @Field("username") username: String
+    ): UpdateChildResponse
+
+    @FormUrlEncoded
+    @PUT("user/change-pw/{id}")
+    suspend fun changePassword(
+        @Header("auth-token") token: String,
+        @Path("id") id: String,
+        @Field("password") password: String,
+        @Field("confirm_password") confirm_password: String
+    ): ChangePasswordResponse
 }
